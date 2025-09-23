@@ -5,17 +5,25 @@
   </head>
   <body>
     <a-scene>
-      <a-sky src="https://cdn.aframe.io/360-image-gallery-assets/images/city.jpg"></a-sky>
 
+      <a-assets>
+        <!-- Define your GLB model as an asset -->
+        <a-asset-item id="roads" src="roads.glb"></a-asset-item>
+        <a-asset-item id="car" src="astra sedan.glb"></a-asset-item>
+      </a-assets>
+      
+      <!-- <a-sky src="https://cdn.aframe.io/360-image-gallery-assets/images/city.jpg"></a-sky> -->
+      <a-sky src="hubble lawn.jpg" rotation="0 -130 0"></a-sky>
+      
       <a-entity
-        gltf-model="https://cdn.aframe.io/examples/city.gltf"
+        gltf-model="#roads"
         scale="2 2 2"
         position="0 -0.5 -5"
         rotation="0 0 0"
       ></a-entity>
 
       <a-entity
-        gltf-model="https://cdn.aframe.io/examples/car.gltf"
+        gltf-model="#car"
         scale="0.5 0.5 0.5"
         position="0 -0.5 0"
         rotation="0 90 0"
