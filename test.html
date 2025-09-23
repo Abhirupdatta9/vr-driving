@@ -11,7 +11,7 @@
     <!-- A-Frame Scene: Everything inside this tag is part of the 3D environment -->
     <a-scene background="color: #ECECEC">
 
-        <!-- <a-assets>
+        <a-assets>
             <a-asset-item id="roads" src="roads.glb"></a-asset-item>
             <a-asset-item id="car" src="astra sedan.glb"></a-asset-item>
         </a-assets>
@@ -29,23 +29,9 @@
         <a-gltf-model
             src="#car"
             position="0 1.5 -5"
-            scale="2 2 2">
+            scale="2 2 2"
+            animation="property: position; to: 1 8 -10; dur: 2000; easing: linear; loop: true">
             
-            <!-- Animation Component: This animates the model's position.
-                 - 'attribute': The property to animate (position, rotation, scale, etc.).
-                 - 'from': The starting position of the animation (x, y, z).
-                 - 'to': The ending position of the animation.
-                 - 'dur': The duration of the animation in milliseconds.
-                 - 'loop': Whether the animation repeats.
-                 - 'dir': The direction of the animation ('alternate' makes it go back and forth). -->
-            <a-animation
-                attribute="position"
-                from="0 1.5 -5"
-                to="11 1.5 5"
-                dur="4000"
-                loop="indefinite"
-                dir="alternate">
-            </a-animation>
         </a-gltf-model>
 
         <!-- Ground Plane: A simple visual element to give context -->
@@ -56,7 +42,7 @@
             height="20"
             color="#7BC8A4"
             shadow>
-        </a-plane> -->
+        </a-plane>
 
         <a-box position="-1 1.6 -5" animation="property: position; to: 1 8 -10; dur: 2000; easing: linear; loop: true" color="tomato"></a-box>
 
