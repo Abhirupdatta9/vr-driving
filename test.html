@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>A-Frame 3D Model Animation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <!-- A-Frame Scene: Everything inside this tag is part of the 3D environment -->
+    <a-scene background="color: #ECECEC">
+
+        <!-- Camera: The user's point of view in the scene -->
+        <a-entity camera look-controls position="0 1.6 5"></a-entity>
+
+        <!-- Lights: Adds lighting to the scene so the model is visible -->
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="0.9" position="2 10 5"></a-light>
+
+        <!-- 3D Model: The asset we will animate.
+             We use a simple GLTF model (a bell) from a public CDN. -->
+        <a-gltf-model
+            src="https://cdn.aframe.io/models/bell/bell.gltf"
+            position="0 1.5 -5"
+            scale="2 2 2">
+            
+            <!-- Animation Component: This animates the model's position.
+                 - 'attribute': The property to animate (position, rotation, scale, etc.).
+                 - 'from': The starting position of the animation (x, y, z).
+                 - 'to': The ending position of the animation.
+                 - 'dur': The duration of the animation in milliseconds.
+                 - 'loop': Whether the animation repeats.
+                 - 'dir': The direction of the animation ('alternate' makes it go back and forth). -->
+            <a-animation
+                attribute="position"
+                from="0 1.5 -5"
+                to="0 1.5 5"
+                dur="4000"
+                loop="indefinite"
+                dir="alternate">
+            </a-animation>
+        </a-gltf-model>
+
+        <!-- Ground Plane: A simple visual element to give context -->
+        <a-plane
+            position="0 0 0"
+            rotation="-90 0 0"
+            width="20"
+            height="20"
+            color="#7BC8A4"
+            shadow>
+        </a-plane>
+
+    </a-scene>
+</body>
+</html>
