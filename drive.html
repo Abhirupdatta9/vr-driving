@@ -4,61 +4,6 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <script>
-      // Register a component to handle car movement
-      AFRAME.registerComponent('car-controls', {
-        init: function () {
-          this.speed = 0.05; // Speed of the car
-          this.rotationSpeed = 1; // Rotation speed
-          this.keys = {}; // Object to track pressed keys
-          
-          // Listen for keydown and keyup events
-          document.addEventListener('keydown', (e) => this.keys[e.key] = true);
-          document.addEventListener('keyup', (e) => this.keys[e.key] = false);
-        },
-
-        tick: function () {
-          const el = this.el;
-          let rotation = el.getAttribute('rotation');
-          let position = el.getAttribute('position');
-
-          // Move forward on 'w' key press
-          if (this.keys['w']) {
-            position.z -= this.speed * Math.cos(rotation.y * Math.PI / 180);
-            position.x -= this.speed * Math.sin(rotation.y * Math.PI / 180);
-          }
-          // Turn left on 'a' key press
-          if (this.keys['a']) {
-            rotation.y += this.rotationSpeed;
-          }
-          // Turn right on 'd' key press
-          if (this.keys['d']) {
-            rotation.y -= this.rotationSpeed;
-          }
-
-          // Update the entity's position and rotation
-          el.setAttribute('position', position);
-          el.setAttribute('rotation', rotation);
-
-          // Update camera position to follow the car
-          const cameraEl = document.querySelector('a-camera');
-          if (cameraEl) {
-            const cameraParent = cameraEl.parentElement;
-            cameraParent.setAttribute('position', {
-              x: position.x - 0.5 * Math.sin(rotation.y * Math.PI / 180),
-              y: position.y + 0.5,
-              z: position.z - 0.5 * Math.cos(rotation.y * Math.PI / 180)
-            });
-            cameraParent.setAttribute('rotation', {
-              x: 0,
-              y: rotation.y,
-              z: 0
-            });
-          }
-        }
-      });
-    </script>
-
     <a-scene>
       <a-assets>
         <a-asset-item id="roads" src="roads.glb"></a-asset-item>
@@ -67,13 +12,10 @@
 
       <a-sky src="hubble lawn.jpg" rotation="0 -130 0"></a-sky>
       
-      <a-entity gltf-model="#car" id="car-entity" scale="0.5 0.5 0.5" position="0 -0.5 0" car-controls></a-entity>
+      <a-entity gltf-model="https://upesstd-my.sharepoint.com/:u:/g/personal/abhirup_18458_stu_upes_ac_in/EbEvGK2jIeFFggUCwQdtX8YBKCBS0sseJWpoA8rYjsScBQ?e=bx9Wna" id="car-entity" scale="0.5 0.5 0.5" position="0 -0.5 0" car-controls></a-entity>
       
       <a-entity gltf-model="#roads" scale="2 2 2" position="0 -0.5 -5"></a-entity>
       
-      <a-entity id="camera-rig">
-        <a-camera position="0 0 0" look-controls="enabled: false;"></a-camera>
-      </a-entity>
       
       <a-entity light="intensity: 10; penumbra: 1" position="0 0.09232 0"></a-entity>
       
