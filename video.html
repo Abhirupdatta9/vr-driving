@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <a-scene background="color: #ECECEC">
+
+        <a-assets>
+            <video id="road" autoplay muted loop="true" src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"> </video>
+        </a-assets>
+
+       
+        <a-entity camera="" look-controls="" position="0.56299 -0.22646 10.97411"></a-entity>
+        <a-videosphere src="#road" 
+        loop 
+        muted 
+        playsinline 
+        crossorigin="anonymous">
+        </a-videosphere>
+
+         <a-plane
+    id="play-button"
+    position="0 0 -2"
+    width="2"
+    height="1"
+    color="#000"
+    opacity="0.7"
+    cursor-listener
+    text="value: TAP TO START VR VIDEO; align: center; color: white"
+  ></a-plane>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const playButton = document.getElementById('play-button');
+      const video = document.getElementById('my-360-video');
+
+      playButton.addEventListener('click', () => {
+        // Must call play() inside the user event handler
+        video.play().then(() => {
+          // Success: hide the overlay
+          playButton.setAttribute('visible', false);
+        }).catch(error => {
+          console.error('Video playback failed:', error);
+          // Fallback if play still fails (e.g., still blocked by OS)
+        });
+      });
+      // A-Frame's cursor component is often used for this on mobile
+      playButton.addEventListener('click', () => {
+        // ... (call video.play() as above)
+      });
+    });
+  </script>
+
+    </a-scene>
+</body>
+</html>
