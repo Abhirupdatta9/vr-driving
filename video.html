@@ -10,7 +10,7 @@
     <a-scene background="color: #ECECEC">
 
         <a-assets>
-            <video id="road" muted loop="true" src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"> </video>
+            <video id="road" src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"> </video>
         </a-assets>
 
        
@@ -40,18 +40,17 @@
         
               playButton.addEventListener('click', () => {
                 // Must call play() inside the user event handler
+                console.log('button clicked');
                 video.play().then(() => {
                   // Success: hide the overlay
                   playButton.setAttribute('visible', false);
+                  console.log('played');
                 }).catch(error => {
                   console.error('Video playback failed:', error);
                   // Fallback if play still fails (e.g., still blocked by OS)
                 });
               });
-              // A-Frame's cursor component is often used for this on mobile
-              playButton.addEventListener('click', () => {
-                // ... (call video.play() as above)
-              });
+              
             });
           </script>
 
