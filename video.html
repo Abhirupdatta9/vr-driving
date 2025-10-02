@@ -23,37 +23,71 @@
         //     }
         // });
 
+    //     AFRAME.registerComponent('play-on-click', {
+    //     init: function () {
+    //         var el = this.el;
+    //         var video = document.querySelector('#my-360-video');
+
+    //         // 1. Listen for 'click' for desktop/raycaster
+    //         el.addEventListener('click', function () {
+    //             video.play();
+    //             el.setAttribute('visible', false);
+    //         });
+
+    //         // 2. Listen for 'touchend' for reliable mobile interaction
+    //         el.addEventListener('touchend', function (evt) {
+    //             // Prevent the default touch action to ensure the event fires
+    //             evt.preventDefault(); 
+                
+    //             // Only proceed if the video is currently paused/stopped
+    //             if (video.paused) {
+    //                 video.play();
+    //                 el.setAttribute('visible', false);
+    //             }
+    //         });
+            
+    //         // OPTIONAL: Fallback listener on the window/document for maximum compatibility
+    //         // This ensures any tap plays the video and hides the overlay, if the video is paused
+    //         document.addEventListener('touchend', function (evt) {
+    //             if (video.paused && document.querySelector('#play-overlay').getAttribute('visible')) {
+    //                 video.play();
+    //                 document.querySelector('#play-overlay').setAttribute('visible', false);
+    //             }
+    //         });
+    //     }
+    // });
+
         AFRAME.registerComponent('play-on-click', {
         init: function () {
             var el = this.el;
             var video = document.querySelector('#my-360-video');
 
-            // 1. Listen for 'click' for desktop/raycaster
-            el.addEventListener('click', function () {
-                video.play();
-                el.setAttribute('visible', false);
-            });
-
-            // 2. Listen for 'touchend' for reliable mobile interaction
-            el.addEventListener('touchend', function (evt) {
-                // Prevent the default touch action to ensure the event fires
-                evt.preventDefault(); 
-                
-                // Only proceed if the video is currently paused/stopped
+            // Function to start the video and hide the overlay
+            function startVideo() {
+                // Only attempt to play if it's currently paused
                 if (video.paused) {
                     video.play();
                     el.setAttribute('visible', false);
                 }
+            }
+
+            // 1. Desktop Browser (reliable 'click' event)
+            el.addEventListener('click', startVideo);
+
+            // 2. Mobile Browser (more reliable 'touchend' event fired on the element)
+            el.addEventListener('touchend', function(evt) {
+                // Prevent default behavior (like scrolling or camera drag) if the touch hits the plane
+                evt.preventDefault();
+                evt.stopPropagation();
+                
+                // Use a short timeout to ensure the A-Frame raycaster has completed its work, 
+                // which helps guarantee the video element is ready for play()
+                setTimeout(startVideo, 50); 
             });
             
-            // OPTIONAL: Fallback listener on the window/document for maximum compatibility
-            // This ensures any tap plays the video and hides the overlay, if the video is paused
-            document.addEventListener('touchend', function (evt) {
-                if (video.paused && document.querySelector('#play-overlay').getAttribute('visible')) {
-                    video.play();
-                    document.querySelector('#play-overlay').setAttribute('visible', false);
-                }
-            });
+            // Optional: Listen for the A-Frame 'fused' event (cursor hover/dwell)
+            // This is useful if the user is using gaze controls (VR headset or phone in Cardboard)
+            el.addEventListener('fused', startVideo);
         }
     });
         
