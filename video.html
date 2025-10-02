@@ -2,41 +2,23 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A-Frame 360 Video with Persistent Controls</title>
+    <title>A-Frame 360 Video</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     
     <script>
-        AFRAME.registerComponent('video-toggle-control', {
+        AFRAME.registerComponent('play-on-click', {
             init: function () {
                 var el = this.el;
                 var video = document.querySelector('#my-360-video');
-                var isPlaying = false;
 
-                // Set initial button text
-                el.setAttribute('text', 'value: TAP TO START');
-
-                // Toggle Play/Pause on click
                 el.addEventListener('click', function () {
-                    if (!isPlaying) {
-                        // Start the video
-                        video.play();
-                        // Update state and button text
-                        isPlaying = true;
-                        el.setAttribute('text', 'value: PAUSE');
-                        el.setAttribute('color', '#FF4136'); // Change color to indicate active state
-                        el.setAttribute('opacity', 0.5);    // Make it semi-transparent while playing
-                    } else {
-                        // Pause the video
-                        video.pause();
-                        // Update state and button text
-                        isPlaying = false;
-                        el.setAttribute('text', 'value: PLAY');
-                        el.setAttribute('color', '#0074D9'); // Change color to indicate paused state
-                        el.setAttribute('opacity', 0.8);
-                    }
+                    // Start video playback
+                    video.play();
+                    // Hide the overlay
+                    el.setAttribute('visible', false);
                 });
             }
         });
@@ -69,17 +51,17 @@
         <a-videosphere src="#my-360-video"></a-videosphere>
 
         <a-entity camera look-controls>
-            <a-cursor color="white" raycaster="objects: #video-control-button;"></a-cursor>
+            <a-cursor color="white" raycaster="objects: #play-overlay;"></a-cursor>
             
             <a-plane
-                id="video-control-button"
-                position="0 -0.8 -1.5"
-                width="0.8"
-                height="0.3"
-                color="#0074D9" 
+                id="play-overlay"
+                position="0 0 -1"
+                width="1.5"
+                height="0.5"
+                color="#000000"
                 opacity="0.8"
-                video-toggle-control
-                text="align: center; color: white; wrap-count: 15; font: roboto"
+                play-on-click
+                text="value: TAP TO BEGIN; align: center; color: white; wrap-count: 20; font: roboto"
             ></a-plane>
         </a-entity>
     </a-scene>
