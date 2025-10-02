@@ -2,58 +2,69 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <title>A-Frame 360 Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    
+    <script>
+        AFRAME.registerComponent('play-on-click', {
+            init: function () {
+                var el = this.el;
+                var video = document.querySelector('#my-360-video');
+
+                el.addEventListener('click', function () {
+                    // Start video playback
+                    video.play();
+                    // Hide the overlay
+                    el.setAttribute('visible', false);
+                });
+            }
+        });
+    </script>
+
+    <style>
+        /* Hide text on A-Frame inspector and prevent mobile scrolling */
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-    <a-scene background="color: #ECECEC">
 
+    <a-scene>
         <a-assets>
-            <video id="road" src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"> </video>
+            <video 
+                id="my-360-video" 
+                src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4" 
+                loop 
+                playsinline 
+                muted 
+                crossorigin="anonymous"
+                preload="auto"
+            ></video>
         </a-assets>
 
-       
-        <a-entity camera="" look-controls="" position="0.56299 -0.22646 10.97411"></a-entity>
-        <a-videosphere src="#road" 
-            loop 
-            muted 
-            playsinline 
-            crossorigin="anonymous">
-        </a-videosphere>
+        <a-videosphere src="#my-360-video"></a-videosphere>
 
-         <a-plane
-            id="play-button"
-            position="0 0 -0.5"
-            width="2"
-            height="1"
-            color="#000"
-            opacity="0.7"
-            cursor-listener
-            text="value: TAP TO START VR VIDEO; align: center; color: white"
-          ></a-plane>
-
-          <script>
-            document.addEventListener('DOMContentLoaded', () => {
-              const playButton = document.getElementById('play-button');
-              const video = document.getElementById('road');
-        
-              playButton.addEventListener('click', () => {
-                // Must call play() inside the user event handler
-                console.log('button clicked');
-                video.play().then(() => {
-                  // Success: hide the overlay
-                  playButton.setAttribute('visible', false);
-                  console.log('played');
-                }).catch(error => {
-                  console.error('Video playback failed:', error);
-                  // Fallback if play still fails (e.g., still blocked by OS)
-                });
-              });
-              
-            });
-          </script>
-
+        <a-entity camera look-controls>
+            <a-cursor color="white" raycaster="objects: #play-overlay;"></a-cursor>
+            
+            <a-plane
+                id="play-overlay"
+                position="0 0 -1"
+                width="1.5"
+                height="0.5"
+                color="#000000"
+                opacity="0.8"
+                play-on-click
+                text="value: TAP TO BEGIN; align: center; color: white; wrap-count: 20; font: https://cdn.aframe.io/fonts/DejaVu-Sans.fnt"
+            ></a-plane>
+        </a-entity>
     </a-scene>
+
 </body>
 </html>
