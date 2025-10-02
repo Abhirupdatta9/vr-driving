@@ -9,19 +9,54 @@
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     
     <script>
-        AFRAME.registerComponent('play-on-click', {
-            init: function () {
-                var el = this.el;
-                var video = document.querySelector('#my-360-video');
+        // AFRAME.registerComponent('play-on-click', {
+        //     init: function () {
+        //         var el = this.el;
+        //         var video = document.querySelector('#my-360-video');
 
-                el.addEventListener('click', function () {
-                    // Start video playback
+        //         el.addEventListener('click', function () {
+        //             // Start video playback
+        //             video.play();
+        //             // Hide the overlay
+        //             el.setAttribute('visible', false);
+        //         });
+        //     }
+        // });
+
+        AFRAME.registerComponent('play-on-click', {
+        init: function () {
+            var el = this.el;
+            var video = document.querySelector('#my-360-video');
+
+            // 1. Listen for 'click' for desktop/raycaster
+            el.addEventListener('click', function () {
+                video.play();
+                el.setAttribute('visible', false);
+            });
+
+            // 2. Listen for 'touchend' for reliable mobile interaction
+            el.addEventListener('touchend', function (evt) {
+                // Prevent the default touch action to ensure the event fires
+                evt.preventDefault(); 
+                
+                // Only proceed if the video is currently paused/stopped
+                if (video.paused) {
                     video.play();
-                    // Hide the overlay
                     el.setAttribute('visible', false);
-                });
-            }
-        });
+                }
+            });
+            
+            // OPTIONAL: Fallback listener on the window/document for maximum compatibility
+            // This ensures any tap plays the video and hides the overlay, if the video is paused
+            document.addEventListener('touchend', function (evt) {
+                if (video.paused && document.querySelector('#play-overlay').getAttribute('visible')) {
+                    video.play();
+                    document.querySelector('#play-overlay').setAttribute('visible', false);
+                }
+            });
+        }
+    });
+        
     </script>
 
     <style>
