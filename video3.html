@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame 360 Video Play/Pause</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <style>
+      .control-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- A-Frame Scene -->
+    <a-scene>
+      <!-- 360 Video mapped on sphere -->
+      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+
+      <!-- Assets -->
+      <a-assets>
+        <video id="video360" 
+               src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"
+               crossorigin="anonymous"
+               playsinline
+               webkit-playsinline
+               preload="auto"
+               muted>
+        </video>
+      </a-assets>
+    </a-scene>
+
+    <!-- Play/Pause Button -->
+    <button id="playBtn" class="control-btn">Play</button>
+
+    <script>
+      const videoEl = document.querySelector('#video360');
+      const btn = document.querySelector('#playBtn');
+
+      btn.addEventListener('click', async () => {
+        if (videoEl.paused) {
+          try {
+            await videoEl.play();
+            btn.textContent = "Pause";
+          } catch (e) {
+            console.log("Play failed:", e);
+          }
+        } else {
+          videoEl.pause();
+          btn.textContent = "Play";
+        }
+      });
+
+      // Ensure first gesture enables sound if unmuted later
+      videoEl.addEventListener('play', () => {
+        videoEl.muted = false; // optional: enable sound after interaction
+      });
+    </script>
+  </body>
+</html>
