@@ -9,7 +9,9 @@
     <a-scene background="color: #ECECEC">
 
       <a-assets>
-            <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+            <a-asset-item id="scorpio" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+            <a-asset-item id="novara" src="future car.glb"></a-asset-item>
+            <a-asset-item id="showroom" src="showroom.glb"></a-asset-item>
             <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
       </a-assets>
       
@@ -24,15 +26,17 @@
       <a-box position="0 2 -10" depth="0.2" height="4" width="20" color="#ddd"></a-box>
       <a-box position="-10 2 0" rotation="0 90 0" depth="0.2" height="4" width="20" color="#ddd"></a-box>
       <a-box position="10 2 0" rotation="0 90 0" depth="0.2" height="4" width="20" color="#ddd"></a-box>
+
+       <!-- Showroom -->
+      <a-entity gltf-model="#showroom" position="-3 0.151 -1" rotation="0 -145 0" shadow="">
+      </a-entity>
       
       <!-- Car left -->
-      <a-entity 
-    
-      <a-entity gltf-model="#car" position="-3 0.151 -1" rotation="0 -145 0" shadow="">
+      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 -145 0" shadow="">
       </a-entity>
       
       <!-- Car right -->
-      <a-entity gltf-model="#car" position="3 0.15055 -1" rotation="0 145 0" shadow="">
+      <a-entity gltf-model="#novara" position="3 0.15055 -1" rotation="0 145 0" shadow="">
       </a-entity>
       
       <!-- Camera Rig with Orbit Controls -->
