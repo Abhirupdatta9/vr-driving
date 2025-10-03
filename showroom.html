@@ -31,7 +31,6 @@
       <!-- Camera + Cursor -->
       <a-entity id="rig" position="0 1.6 4">
         <a-entity camera look-controls>
-          <!-- Cursor (for clicking on objects) -->
           <a-cursor 
             fuse="false" 
             raycaster="objects: .clickable" 
@@ -43,22 +42,34 @@
       <!-- BUTTONS -->
       <a-plane id="btnCar1" position="-1 1 -2" width="1.5" height="0.5" 
                color="#007BFF" class="clickable"
-               text="value: Visit Car 1; align: center; color: white;">
+               text="value: Drive Scorpio; align: center; color: white;">
       </a-plane>
 
       <a-plane id="btnCar2" position="1 1 -2" width="1.5" height="0.5" 
                color="#28A745" class="clickable"
-               text="value: Visit Car 2; align: center; color: white;">
+               text="value: Drive Novara; align: center; color: white;">
       </a-plane>
 
       <script>
         document.addEventListener("DOMContentLoaded", () => {
-          document.querySelector("#btnCar1").addEventListener('click', () => {
-            window.location.href = 'https://aframe.io/docs/1.7.0/introduction/models.html#model-performance';
+          const btnCar1 = document.querySelector("#btnCar1");
+          const btnCar2 = document.querySelector("#btnCar2");
+
+          // Redirect
+          btnCar1.addEventListener("click", () => {
+            window.location.href = "https://aframe.io/docs/1.7.0/introduction/models.html#model-performance";
           });
-          document.querySelector("#btnCar2").addEventListener('click', () => {
-            window.location.href = 'https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9'; 
+          btnCar2.addEventListener("click", () => {
+            window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9";
           });
+
+          // Hover effect for Car1
+          btnCar1.addEventListener("mouseenter", () => btnCar1.setAttribute("color", "#0056b3")); // darker blue
+          btnCar1.addEventListener("mouseleave", () => btnCar1.setAttribute("color", "#007BFF"));
+
+          // Hover effect for Car2
+          btnCar2.addEventListener("mouseenter", () => btnCar2.setAttribute("color", "#1e7e34")); // darker green
+          btnCar2.addEventListener("mouseleave", () => btnCar2.setAttribute("color", "#28A745"));
         });
       </script>
   
