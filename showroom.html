@@ -50,6 +50,28 @@
         <a-entity camera="" look-controls="" <="" a-entity="" rotation="-5.729577951308204 358.4423966338405 0">
         </a-entity>
       </a-entity>
+
+      <!-- BUTTONS -->
+      <a-plane id="btnCar1" position="-1 1 -2" width="1.5" height="0.5" color="#007BFF" class="clickable"
+               text="value: Visit Car 1; align: center; color: white;">
+      </a-plane>
+
+      <a-plane id="btnCar2" position="1 1 -2" width="1.5" height="0.5" color="#28A745" class="clickable"
+               text="value: Visit Car 2; align: center; color: white;">
+      </a-plane>
+
+      <script>
+        // Redirect on button click
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelector("#btnCar1").addEventListener("click", () => {
+            window.location.href = "https://aframe.io/docs/1.7.0/introduction/models.html#model-performance";
+          });
+          document.querySelector("#btnCar2").addEventListener("click", () => {
+            window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9"; 
+          });
+        });
+      </script>
+  
       
     </a-scene>
   </body>
