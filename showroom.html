@@ -9,72 +9,59 @@
     <a-scene background="color: #ECECEC">
 
       <a-assets>
-            <a-asset-item id="scorpio" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
-            <a-asset-item id="novara" src="future car.glb"></a-asset-item>
-            <a-asset-item id="showroom" src="showroom.glb"></a-asset-item>
-            <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
+        <a-asset-item id="scorpio" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+        <a-asset-item id="novara" src="future car.glb"></a-asset-item>
+        <a-asset-item id="showroom" src="showroom.glb"></a-asset-item>
+        <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
       </a-assets>
       
       <!-- Lighting -->
       <a-entity light="type: ambient; intensity: 0.7"></a-entity>
       <a-entity light="type: directional; intensity: 0.8; castShadow: true" position="2 4 2"></a-entity>
-      <a-entity light="intensity: 3" position="-19.41012 4 -21.38108"></a-entity>
-      <a-entity light="intensity: 3" position="19.44065 4 -21.38108"></a-entity>
-      <a-entity light="intensity: 3" position="19.44065 4 18.26897"></a-entity>
-      <a-entity light="intensity: 3" position="-65.57752 4 70.91474"></a-entity>
-      <a-entity light="intensity: 2" position="3.47056 4.65821 -10.75879"></a-entity>
-      <a-entity light="intensity: 2" position="-4.52502 4.65821 -10.75879"></a-entity>
-      
-      <!-- Floor -->
-      <!-- <a-plane rotation="-90 0 0" width="20" height="20" color="#f5f5f5" shadow></a-plane> -->
-      
-      <!-- Showroom Walls -->
-      <!-- <a-box position="0 2 -10" depth="0.2" height="4" width="20" color="#ddd"></a-box>
-      <a-box position="-10 2 0" rotation="0 90 0" depth="0.2" height="4" width="20" color="#ddd"></a-box>
-      <a-box position="10 2 0" rotation="0 90 0" depth="0.2" height="4" width="20" color="#ddd"></a-box> -->
 
-       <!-- Showroom -->
-      <a-entity gltf-model="#showroom" rotation="0 0 0" shadow="" scale="1.3 1.3 1.3">
-      </a-entity>
+      <!-- Showroom -->
+      <a-entity gltf-model="#showroom" scale="1.3 1.3 1.3"></a-entity>
       
       <!-- Car left -->
-      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 -145 0" shadow="">
-      </a-entity>
+      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 -145 0"></a-entity>
       
       <!-- Car right -->
-      <a-entity gltf-model="#novara" position="3 0.0151 -1" rotation="0 -37.009635818680394 0" shadow="">
-      </a-entity>
+      <a-entity gltf-model="#novara" position="3 0.0151 -1" rotation="0 -37 0"></a-entity>
       
-      <!-- Camera Rig with Orbit Controls -->
-      <a-entity id="rig" position="0 1.42163 4.54817">
-        <a-entity camera="" look-controls="" rotation="-5.729577951308204 358.4423966338405 0">
+      <!-- Camera + Cursor -->
+      <a-entity id="rig" position="0 1.6 4">
+        <a-entity camera look-controls>
+          <!-- Cursor (for clicking on objects) -->
+          <a-cursor 
+            fuse="false" 
+            raycaster="objects: .clickable" 
+            material="color: black; shader: flat">
+          </a-cursor>
         </a-entity>
       </a-entity>
 
       <!-- BUTTONS -->
-      <a-plane id="btnCar1" position="-1 1 -2" width="1.5" height="0.5" color="#007BFF" class="clickable"
-               text="value: Visit Car 1; align: center; color: white;"
-               link="href: https://aframe.io/docs/1.7.0/introduction/models.html#model-performance" >
+      <a-plane id="btnCar1" position="-1 1 -2" width="1.5" height="0.5" 
+               color="#007BFF" class="clickable"
+               text="value: Visit Car 1; align: center; color: white;">
       </a-plane>
 
-      <a-plane id="btnCar2" position="1 1 -2" width="1.5" height="0.5" color="#28A745" class="clickable"
-               text="value: Visit Car 2; align: center; color: white;"
-               link="href: https://aframe.io/docs/1.7.0/introduction/models.html#model-performance">
+      <a-plane id="btnCar2" position="1 1 -2" width="1.5" height="0.5" 
+               color="#28A745" class="clickable"
+               text="value: Visit Car 2; align: center; color: white;">
       </a-plane>
 
       <script>
-        // Redirect on button click
-        // document.addEventListener("DOMContentLoaded", () => {
-        //   document.querySelector("#btnCar1").addEventListener('click', () => {
-        //     window.location.href = 'https://aframe.io/docs/1.7.0/introduction/models.html#model-performance';
-        //   });
-        //   document.querySelector("#btnCar2").addEventListener('click', () => {
-        //     window.location.href = 'https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9'; 
-        //   });
-        // });
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelector("#btnCar1").addEventListener('click', () => {
+            window.location.href = 'https://aframe.io/docs/1.7.0/introduction/models.html#model-performance';
+          });
+          document.querySelector("#btnCar2").addEventListener('click', () => {
+            window.location.href = 'https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9'; 
+          });
+        });
       </script>
   
-      
     </a-scene>
   </body>
 </html>
