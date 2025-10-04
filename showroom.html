@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Car Showroom</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene background="color: #ECECEC">
+
+      <a-assets>
+        <a-asset-item id="scorpio" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+        <a-asset-item id="novara" src="novara.glb"></a-asset-item>
+        <a-asset-item id="showroom" src="showroom.glb"></a-asset-item>
+        <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
+      </a-assets>
+      
+    
+      <!-- Lighting --> 
+      <a-entity light="type: ambient; intensity: 0.7"></a-entity>
+      <a-entity light="type: directional; intensity: 0.8; castShadow: true" position="2 4 2"></a-entity>
+      <a-entity light="intensity: 2" position="-19.41012 4 -21.38108"></a-entity> 
+      <a-entity light="intensity: 2" position="19.44065 4 -21.38108"></a-entity> 
+      <a-entity light="intensity: 2" position="19.44065 4 18.26897"></a-entity> 
+      <a-entity light="intensity: 2" position="-65.57752 4 70.91474"></a-entity> 
+      <a-entity light="intensity: 2" position="3.47056 4.65821 -10.75879"></a-entity> 
+      <a-entity light="intensity: 2" position="-4.52502 4.65821 -10.75879"></a-entity>
+
+      <!-- Camera + Cursor -->
+      <a-entity id="rig" position="0 1.6 8">
+        <a-entity id="camera1" camera="active: true" active look-controls>
+          <a-cursor 
+            fuse="false" 
+            raycaster="objects: .clickable" 
+            material="color: black; shader: flat">
+          </a-cursor>
+        </a-entity>
+      </a-entity>
+      
+      <!-- Showroom -->
+      <a-entity gltf-model="#showroom" scale="1.3 1.3 1.3"></a-entity>
+    
+      
+      <!-- Car left -->
+      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0"
+        animation="property: rotation; from: 0 180 0; to: 0 540 0; dur: 30000; easing: linear; dir: normal; loop: true">
+      </a-entity>
+      
+      <!-- Car right -->
+      <a-entity gltf-model="#novara" position="3 0.0151 -1" rotation="0 0 0"
+        animation="property: rotation; from: 0 0 0; to: 0 360 0; dur: 30000; easing: linear; dir: normal; loop: true">
+          <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+            <a-entity id="camera2" camera look-controls>
+              <a-cursor 
+                fuse="false" 
+                raycaster="objects: .clickable" 
+                material="color: black; shader: flat"
+                position="0 0 -0.5">
+              </a-cursor>
+            </a-entity>
+          </a-entity>
+          <a-plane id="switchtoCam1" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: SwitchCam; width: 3" scale="0.2 0.2 0.2" rotation="0 180 0">
+          </a-plane>
+      </a-entity>
+
+      
+      
+      
+      
+      <!-- BUTTONS -->
+      <a-plane id="btnCar1" position="-1.85175 0.266 4" width="1.5" height="0.5" 
+               color="#007BFF" class="clickable"
+               text="value: Drive Scorpio; align: center; color: white; width: 5;"
+               scale="1 1 1">
+      </a-plane>
+
+      <a-plane id="btnCar2" position="1.67942 0.266 4" width="1.5" height="0.5" 
+               color="#28A745" class="clickable"
+               text="value: Drive Novara; align: center; color: white; width: 5;"
+               scale="1 1 1">
+      </a-plane>
+
+      <a-plane id="switchtoCam2" position="0 0.266 4" width="1.5" height="0.5" 
+               color="#28A745" class="clickable"
+               text="value: SwitchCam; align: center; color: white; width: 5;"
+               scale="1 1 1">
+      </a-plane>
+    
+
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const btnCar1 = document.querySelector("#btnCar1");
+          const btnCar2 = document.querySelector("#btnCar2");
+
+          // Redirect
+          btnCar1.addEventListener("click", () => {
+            playClickAnimation(btnCar1);
+            setTimeout(() => {
+              window.location.href = "https://aframe.io/docs/1.7.0/introduction/models.html#model-performance";
+            }, 200);
+          });
+
+          btnCar2.addEventListener("click", () => {
+            playClickAnimation(btnCar2);
+            setTimeout(() => {
+              window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9";
+            }, 200);
+          });
+
+          // Hover animation
+          function addHoverEffects(btn, normalColor, hoverColor) {
+            btn.addEventListener("mouseenter", () => {
+              btn.setAttribute("color", hoverColor);
+              btn.setAttribute("animation__hover", {
+                property: "scale",
+                to: "1.2 1.2 1.2",
+                dur: 150,
+                easing: "easeOutQuad"
+              });
+            });
+            btn.addEventListener("mouseleave", () => {
+              btn.setAttribute("color", normalColor);
+              btn.setAttribute("animation__unhover", {
+                property: "scale",
+                to: "1 1 1",
+                dur: 150,
+                easing: "easeOutQuad"
+              });
+            });
+          }
+
+          addHoverEffects(btnCar1, "#007BFF", "#0056b3");
+          addHoverEffects(btnCar2, "#28A745", "#1e7e34");
+
+          // Click press-down animation
+          function playClickAnimation(btn) {
+            btn.setAttribute("animation__press", {
+              property: "scale",
+              to: "0.9 0.9 0.9",
+              dur: 80,
+              dir: "alternate",
+              easing: "easeInOutQuad",
+              loop: "1"
+            });
+          }
+        });
+
+        // camera switch
+        const cam1 = document.getElementById('camera1');
+        const cam2 = document.getElementById('camera2');
+        const button1 = document.getElementById('switchtoCam2');
+        const button2 = document.getElementById('switchtoCam1');
+        
+        let useCam1 = true;
+  
+        button1.addEventListener('click', () => {
+          cam1.setAttribute('camera', 'active', false);
+          cam2.setAttribute('camera', 'active', true);
+          useCam1 = !useCam1;
+        });
+
+        button2.addEventListener('click', () => {
+          cam1.setAttribute('camera', 'active', true);
+          cam2.setAttribute('camera', 'active', false); 
+          useCam1 = !useCam1;
+        });
+        
+      </script>
+      
+  
+    </a-scene>
+  </body>
+</html>
