@@ -42,15 +42,26 @@
     
       
       <!-- Car left -->
-      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0"
-        >
+      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0">
+        <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+            <a-entity id="cam-sco-1" camera look-controls>
+              <a-cursor 
+                fuse="false" 
+                raycaster="objects: .clickable" 
+                material="color: black; shader: flat"
+                position="0 0 -0.5">
+              </a-cursor>
+            </a-entity>
+          </a-entity>
+          <a-plane id="switchtoCam1" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: SwitchCam; width: 3" scale="0.2 0.2 0.2" rotation="0 180 0">
+          </a-plane>
       </a-entity>
       
       <!-- Car right -->
       <a-entity gltf-model="#novara" position="3 0.0151 -1" rotation="0 0 0"
       >
           <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
-            <a-entity id="camera2" camera look-controls>
+            <a-entity id="cam-nov-1" camera look-controls>
               <a-cursor 
                 fuse="false" 
                 raycaster="objects: .clickable" 
@@ -70,13 +81,13 @@
       <!-- BUTTONS -->
       <a-plane id="btnCar1" position="-1.85175 0.266 4" width="1.5" height="0.5" 
                color="#007BFF" class="clickable"
-               text="value: Drive Scorpio; align: center; color: white; width: 5;"
+               text="value: Scorpio Interior; align: center; color: white; width: 5;"
                scale="1 1 1">
       </a-plane>
-
+      
       <a-plane id="btnCar2" position="1.67942 0.266 4" width="1.5" height="0.5" 
                color="#28A745" class="clickable"
-               text="value: Drive Novara; align: center; color: white; width: 5;"
+               text="value: Novara Interior; align: center; color: white; width: 5;"
                scale="1 1 1">
       </a-plane>
 
@@ -147,7 +158,8 @@
 
         // camera switch
         const cam1 = document.getElementById('camera1');
-        const cam2 = document.getElementById('camera2');
+        const cam2 = document.getElementById('came-nov-1');
+        const cam3 = document.getElementById('cam-sco-1');
         const button1 = document.getElementById('switchtoCam2');
         const button2 = document.getElementById('switchtoCam1');
         
