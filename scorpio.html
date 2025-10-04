@@ -12,20 +12,19 @@
         <a-assets>
             <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
             <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
-            
         </a-assets>
 
-        <a-entity position="0 0 0" rotation="0 90 0">
-            <a-entity gltf-model="#car" position="0.47956 -0.496 10.98374" scale="0.2 0.2 0.2" >
-            </a-entity>
-            <a-entity gltf-model="#steering" position="0.55937 -0.30436 10.84727" scale="0.18 0.18 0.18">
-            </a-entity>
+       
+        
+        <a-entity gltf-model="#car" position="0.47956 -0.496 10.98374" scale="0.2 0.2 0.2">
+        </a-entity>
+
+        <a-entity gltf-model="#steering" position="0.55937 -0.30436 10.84727" scale="0.18 0.18 0.18">        >
         </a-entity>
 
 
-    
         <a-entity camera="" look-controls="" position="0.56299 -0.22646 10.97411"></a-entity>
-        <a-sky src="rural day.jpg"></a-sky>
+        <a-sky src="rural day.jpg" rotation="0 -90 0"></a-sky>
         
 
     </a-scene>
