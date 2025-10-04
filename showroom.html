@@ -72,6 +72,8 @@
           </a-entity>
           <a-plane id="switchtoCam1" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: SwitchCam; width: 3" scale="0.2 0.2 0.2" rotation="0 180 0">
           </a-plane>
+          <a-plane id="nov_drive" position="-0.40816 1.5 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: SwitchCam; width: 3" scale="0.2 0.2 0.2" rotation="0 180 0">
+          </a-plane>
       </a-entity>
 
       
@@ -102,6 +104,8 @@
         document.addEventListener("DOMContentLoaded", () => {
           const btnCar1 = document.querySelector("#btnCar1");
           const btnCar2 = document.querySelector("#btnCar2");
+          const nov_drive = document.querySelector("#nov_drive");
+          const sco_drive = document.querySelector("#sco_drive");
 
           // Redirect
           btnCar1.addEventListener("click", () => {
@@ -115,6 +119,20 @@
             playClickAnimation(btnCar2);
             setTimeout(() => {
               window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9";
+            }, 200);
+          });
+
+          nov_drive.addEventListener("click", () => {
+            playClickAnimation(btnCar2);
+            setTimeout(() => {
+              window.location.href = "https://vr-driving.netlify.app/video3";
+            }, 200);
+          });
+
+          sco_drive.addEventListener("click", () => {
+            playClickAnimation(btnCar2);
+            setTimeout(() => {
+              window.location.href = "https://vr-driving.netlify.app/video3";
             }, 200);
           });
 
