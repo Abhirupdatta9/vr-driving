@@ -46,15 +46,18 @@
         </a-entity>
       </a-entity>
 
+      
       <!-- BUTTONS -->
       <a-plane id="btnCar1" position="-1 1 -2" width="1.5" height="0.5" 
                color="#007BFF" class="clickable"
-               text="value: Drive Scorpio; width: 5; align: center; color: white;">
+               text="value: Drive Scorpio; align: center; color: white;"
+               scale="1 1 1">
       </a-plane>
 
       <a-plane id="btnCar2" position="1 1 -2" width="1.5" height="0.5" 
                color="#28A745" class="clickable"
-               text="value: Drive Novara; width: 5; align: center; color: white;">
+               text="value: Drive Novara; align: center; color: white;"
+               scale="1 1 1">
       </a-plane>
 
       <script>
@@ -64,21 +67,58 @@
 
           // Redirect
           btnCar1.addEventListener("click", () => {
-            window.location.href = "https://aframe.io/docs/1.7.0/introduction/models.html#model-performance";
+            playClickAnimation(btnCar1);
+            setTimeout(() => {
+              window.location.href = "https://aframe.io/docs/1.7.0/introduction/models.html#model-performance";
+            }, 200);
           });
+
           btnCar2.addEventListener("click", () => {
-            window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9";
+            playClickAnimation(btnCar2);
+            setTimeout(() => {
+              window.location.href = "https://sketchfab.com/3d-models/garageshowroom-vr-ready-6a9653d1b1f84accb7e28a65b9c77fb9";
+            }, 200);
           });
 
-          // Hover effect for Car1
-          btnCar1.addEventListener("mouseenter", () => btnCar1.setAttribute("color", "#0056b3")); // darker blue
-          btnCar1.addEventListener("mouseleave", () => btnCar1.setAttribute("color", "#007BFF"));
+          // Hover animation
+          function addHoverEffects(btn, normalColor, hoverColor) {
+            btn.addEventListener("mouseenter", () => {
+              btn.setAttribute("color", hoverColor);
+              btn.setAttribute("animation__hover", {
+                property: "scale",
+                to: "1.2 1.2 1.2",
+                dur: 150,
+                easing: "easeOutQuad"
+              });
+            });
+            btn.addEventListener("mouseleave", () => {
+              btn.setAttribute("color", normalColor);
+              btn.setAttribute("animation__unhover", {
+                property: "scale",
+                to: "1 1 1",
+                dur: 150,
+                easing: "easeOutQuad"
+              });
+            });
+          }
 
-          // Hover effect for Car2
-          btnCar2.addEventListener("mouseenter", () => btnCar2.setAttribute("color", "#1e7e34")); // darker green
-          btnCar2.addEventListener("mouseleave", () => btnCar2.setAttribute("color", "#28A745"));
+          addHoverEffects(btnCar1, "#007BFF", "#0056b3");
+          addHoverEffects(btnCar2, "#28A745", "#1e7e34");
+
+          // Click press-down animation
+          function playClickAnimation(btn) {
+            btn.setAttribute("animation__press", {
+              property: "scale",
+              to: "0.9 0.9 0.9",
+              dur: 80,
+              dir: "alternate",
+              easing: "easeInOutQuad",
+              loop: "1"
+            });
+          }
         });
       </script>
+      
   
     </a-scene>
   </body>
