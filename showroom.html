@@ -26,6 +26,17 @@
       <a-entity light="intensity: 2" position="3.47056 4.65821 -10.75879"></a-entity> 
       <a-entity light="intensity: 2" position="-4.52502 4.65821 -10.75879"></a-entity>
 
+      <!-- Camera + Cursor -->
+      <a-entity id="rig" position="0 1.6 8">
+        <a-entity id="camera1" camera="active: true" active look-controls>
+          <a-cursor 
+            fuse="false" 
+            raycaster="objects: .clickable" 
+            material="color: black; shader: flat">
+          </a-cursor>
+        </a-entity>
+      </a-entity>
+      
       <!-- Showroom -->
       <a-entity gltf-model="#showroom" scale="1.3 1.3 1.3"></a-entity>
       
@@ -54,26 +65,7 @@
       </a-entity>
 
       
-      <!-- Camera + Cursor -->
-      <a-entity id="rig" position="0 1.6 8">
-        <a-entity id="camera1" camera="active: true" active look-controls>
-          <a-cursor 
-            fuse="false" 
-            raycaster="objects: .clickable" 
-            material="color: black; shader: flat">
-          </a-cursor>
-        </a-entity>
-      </a-entity>
-
-      <!-- <a-entity id="rig" position="0 1.6 -8">
-        <a-entity id="camera2" camera look-controls>
-          <a-cursor 
-            fuse="false" 
-            raycaster="objects: .clickable" 
-            material="color: black; shader: flat">
-          </a-cursor>
-        </a-entity>
-      </a-entity> -->
+      
       
       
       <!-- BUTTONS -->
