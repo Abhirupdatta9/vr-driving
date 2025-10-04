@@ -57,7 +57,7 @@
               </a-cursor>
             </a-entity>
           </a-entity>
-          <a-plane id="switchCam" position="-0.37081 0.7 1" width="1.5" height="0.5" 
+          <a-plane id="switchtoCam1" position="-0.37081 0.7 1" width="1.5" height="0.5" 
                color="#28A745" class="clickable"
                text="value: SwitchCam; align: center; color: white; width: 3;"
                scale="1 1 1">
@@ -81,7 +81,7 @@
                scale="1 1 1">
       </a-plane>
 
-      <a-plane id="switchCam" position="0 0.266 4" width="1.5" height="0.5" 
+      <a-plane id="switchtoCam2" position="0 0.266 4" width="1.5" height="0.5" 
                color="#28A745" class="clickable"
                text="value: SwitchCam; align: center; color: white; width: 5;"
                scale="1 1 1">
@@ -149,20 +149,23 @@
         // camera switch
         const cam1 = document.getElementById('camera1');
         const cam2 = document.getElementById('camera2');
-        const button = document.getElementById('switchCam');
-  
+        const button1 = document.getElementById('switchtoCam2');
+        const button2 = document.getElementById('switchtoCam1');
+        
         let useCam1 = true;
   
-        button.addEventListener('click', () => {
-          if (useCam1) {
-            cam1.setAttribute('camera', 'active', false);
-            cam2.setAttribute('camera', 'active', true);
-          } else {
-            cam2.setAttribute('camera', 'active', false);
-            cam1.setAttribute('camera', 'active', true);
-          }
+        button1.addEventListener('click', () => {
+          cam1.setAttribute('camera', 'active', false);
+          cam2.setAttribute('camera', 'active', true);
           useCam1 = !useCam1;
         });
+
+        button2.addEventListener('click', () => {
+          cam1.setAttribute('camera', 'active', true);
+          cam2.setAttribute('camera', 'active', false); 
+          useCam1 = !useCam1;
+        });
+        
       </script>
       
   
