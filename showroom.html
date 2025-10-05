@@ -44,10 +44,10 @@
 
       
       <!-- Car left Scorpio -->
-      <a-entity gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0">
+      <a-entity id="scorpio" gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0">
 
           //Front seat cam
-          <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+          <a-entity id="rig" position="0.406 1.29 -0.095" rotation="0 0 0">
             <a-entity id="sco_front_seat_cam" camera look-controls>
               <a-cursor 
                 fuse="false" 
@@ -59,7 +59,7 @@
           </a-entity>
     
           //Back seat cam
-          <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+          <a-entity id="rig" position="-0.37081 1.29002 0.90993" rotation="0 0 0">
             <a-entity id="sco_back_seat_cam" camera look-controls>
               <a-cursor 
                 fuse="false" 
@@ -73,19 +73,19 @@
           //Buttons Group-----------------------
           
           //swtich to main cam
-          <a-plane id="sco_switch_to_main_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Exit Car; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="sco_switch_to_main_cam" position="-0.40816 1.08832 -0.56788" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Exit Car; width: 2" scale="0.1 0.1 0.1" rotation="0 0 0">
           </a-plane>
     
           //swtich to backseat cam
-          <a-plane id="sco_switch_to_back_seat_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Back Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="sco_switch_to_back_seat_cam" position="-0.26546 1.03954 -0.51894" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Back Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 0 0">
           </a-plane>
     
           //swtich to frontseat cam
-          <a-plane id="sco_switch_to_front_seat_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Front Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="sco_switch_to_front_seat_cam" position="-0.40816 1.03954 0.42958" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Front Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 0 0">
           </a-plane>
     
           //drive
-          <a-plane id="sco_drive" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: VR Drive; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="sco_drive" position="-0.06198 1.03954 -0.51686" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: VR Drive; width: 2" scale="0.1 0.1 0.1" rotation="0 0 0">
           </a-plane>
         
       </a-entity>
@@ -95,11 +95,11 @@
 
       
       <!-- Car right Novara -->
-      <a-entity gltf-model="#novara" position="3 0.0151 -1" rotation="0 0 0"
+      <a-entity id="novara" gltf-model="#novara" position="3 0.0151 -1" rotation="0 0 0"
       >
 
           //Front seat cam
-          <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+          <a-entity id="rig" position="0.41308 1.29002 -0.43471" rotation="0 180 0">
             <a-entity id="nov_front_seat_cam" camera look-controls>
               <a-cursor 
                 fuse="false" 
@@ -111,7 +111,7 @@
           </a-entity>
   
           //Back seat cam
-          <a-entity id="rig" position="-0.37081 1.29002 -0.36545" rotation="0 180 0">
+          <a-entity id="rig" position="-0.37081 1.29002 -1.39088" rotation="0 180 0">
             <a-entity id="nov_back_seat_cam" camera look-controls>
               <a-cursor 
                 fuse="false" 
@@ -125,21 +125,21 @@
           //Button group ---------
 
           //switch to main cam
-          <a-plane id="nov_switch_to_main_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Exit Car; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="nov_switch_to_main_cam" position="-0.01433 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Exit Car; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
           </a-plane>
 
           //swtich to backseat cam
-          <a-plane id="nov_switch_to_back_seat_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Back Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="nov_switch_to_back_seat_cam" position="-0.18876 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Back Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          </a-plane>
+
+          //swtich to frontseat cam
+          <a-plane id="nov_switch_to_front_seat_cam" position="-0.40816 1.03954 -0.78028" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Front Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
           </a-plane>
     
-          //swtich to frontseat cam
-          <a-plane id="nov_switch_to_front_seat_cam" position="-0.40816 1.03954 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: Front Seat View; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
-          </a-plane>
-        
           //drive
-          <a-plane id="nov_drive" position="-0.40816 1.14543 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: VR Drive; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
+          <a-plane id="nov_drive" position="-0.3841 1.03967 0.36547" width="1.5" height="0.5" color="#28A745" class="clickable" text="align: center; color: white; value: VR Drive; width: 2" scale="0.1 0.1 0.1" rotation="0 180 0">
           </a-plane>
-        
+
       </a-entity>
 
       
@@ -164,11 +164,11 @@
                text="value: SwitchCam; align: center; color: white; width: 5;"
                scale="1 1 1">
       </a-plane> -->
-    
+         
+  
+    </a-scene>
 
-
-      
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
           const sco_btn = document.querySelector("#sco_btn");
           const nov_btn = document.querySelector("#nov_btn");
@@ -372,9 +372,7 @@
             }, 200);
           });
         
-      </script>
-      
-  
-    </a-scene>
+    </script>
+    
   </body>
 </html>
