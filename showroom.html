@@ -167,6 +167,13 @@
     </a-scene>
 
     <script>
+        const sceneEl = document.querySelector('a-scene');
+        sceneEl.addEventListener('enter-vr', () => {
+          const cameraEl = document.querySelector('[camera]');
+          cameraEl.object3D.position.set(0, 1.6, 8); // your fixed position
+          cameraEl.object3D.rotation.set(0, 0, 0);
+        });
+      
         document.addEventListener("DOMContentLoaded", () => {
           const sco_btn = document.querySelector("#sco_btn");
           const nov_btn = document.querySelector("#nov_btn");
