@@ -26,15 +26,15 @@
       <a-entity light="intensity: 3" position="-4.52502 4.65821 -10.75879"></a-entity>
 
       <!-- Main Camera + Cursor -->
-      <a-entity id="rig" position="0 1.6 8">
-        <a-entity id="main_cam" camera="active: true" active look-controls>
+      <!-- <a-entity id="rig" position="0 1.6 8"> -->
+        <a-entity id="main_cam" camera="active: true" active look-controls position="0 1.6 8">
           <a-cursor 
             fuse="false" 
             raycaster="objects: .clickable" 
             material="color: #ff00f7; shader: flat">
           </a-cursor>
         </a-entity>
-      </a-entity>
+      <!-- </a-entity> -->
       
       <!-- Showroom -->
       <a-entity gltf-model="#showroom" scale="1.3 1.3 1.3"></a-entity>
