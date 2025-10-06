@@ -5,6 +5,7 @@
     <title>A-Frame 360 Video Play/Pause + Steering Sync</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <style>
+      /* Keeping the CSS style block as it was, though it's unused now. */
       .control-btn {
         position: absolute;
         bottom: 20px;
@@ -22,24 +23,21 @@
   </head>
   <body>
     <a-scene>
-      <!-- 360 Video mapped on sphere -->
       <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
 
-      <!-- Assets -->
       <a-assets>
         <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
         <a-asset-item id="steering" src="scorpio steering optimized.glb"></a-asset-item>
         <video id="video360" 
-               src="road 360 trimmed.mp4"
-               crossorigin="anonymous"
-               playsinline
-               webkit-playsinline
-               preload="auto"
-               muted>
+              src="road 360 trimmed.mp4"
+              crossorigin="anonymous"
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              muted>
         </video>
       </a-assets>
 
-      <!-- Car and camera -->
       <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
           
         <a-entity id="camera" camera look-controls position="0.40632 1.27747 0.14709">
@@ -54,12 +52,9 @@
           </a-entity>
         </a-entity>
         
-        <!-- Steering wheel (animations triggered via events) -->
-        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"
-          animation__drive="property: rotation; to: -5 15 35; dur: 1000; easing: linear; dir: alternate; loop: true; startEvents: startdrive; pauseEvents: stopdrive">
+        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1">
         </a-entity>
         
-        <!-- In-scene clickable button -->
         <a-plane id="playBtn" class="clickable" 
                  position="0.0192 1.05417 -0.57141" 
                  width="1.5" height="0.5" 
@@ -67,7 +62,7 @@
                  text="align: center; color: white; value: Start Drive; width: 5" 
                  scale="0.2 0.2 0.2">
         </a-plane>
-       
+        
       </a-entity>
     </a-scene>
 
@@ -77,30 +72,47 @@
       const steering = document.querySelector('#steering');
       let isPlaying = false;
 
+      // Define the steering animation properties
+      const steeringAnimationProps = {
+        property: 'rotation',
+        to: '-5 15 35',
+        dur: 1000,
+        easing: 'linear',
+        dir: 'alternate',
+        loop: true
+      };
+
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
-          // Start video
+          // START DRIVE
+          
+          // 1. Start video (requires user gesture, hence the click)
           try {
+            // Note: The video element needs to be unmuted for autoplay to work on some platforms.
+            // Consider removing 'muted' from the video tag if you want sound, 
+            // but keep it if you only want to bypass autoplay restrictions.
             await videoEl.play();
           } catch (e) {
-            console.log("Play failed:", e);
+            console.log("Video Play failed (might need user interaction):", e);
           }
 
-          // Start steering animation
-          steering.emit('startdrive');
+          // 2. Start steering animation: Set the component to start the loop
+          steering.setAttribute('animation__drive', steeringAnimationProps);
 
-          // Change button label
+          // 3. Update state and button label
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
 
         } else {
-          // Pause video
+          // STOP DRIVE
+          
+          // 1. Pause video
           videoEl.pause();
 
-          // Stop steering animation
-          steering.emit('stopdrive');
+          // 2. Stop steering animation: Remove the component entirely
+          steering.removeAttribute('animation__drive');
 
-          // Change button label
+          // 3. Update state and button label
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
