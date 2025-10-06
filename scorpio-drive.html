@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>A-Frame 360 Video Play/Pause</title>
+    <title>A-Frame 360 Video Play/Pause + Steering Sync</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <style>
       .control-btn {
@@ -21,7 +21,6 @@
     </style>
   </head>
   <body>
-    <!-- A-Frame Scene -->
     <a-scene>
       <!-- 360 Video mapped on sphere -->
       <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
@@ -40,71 +39,51 @@
         </video>
       </a-assets>
 
-      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 0 0">
+      <!-- Car and camera -->
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
           
-          <a-entity id="camera" camera="" look-controls="" position="0.40632 1.27747 0.14709">
-            <a-entity 
-              cursor="fuse: true; fuseTimeout: 1500"
-              raycaster="objects: .clickable"
-              position="0 0 -0.5"
-              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-              material="color: #ffffff; shader: flat"
-              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
-              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
-            </a-entity>
+        <a-entity id="camera" camera look-controls position="0.40632 1.27747 0.14709">
+          <a-entity 
+            cursor="fuse: true; fuseTimeout: 1500"
+            raycaster="objects: .clickable"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+            material="color: #ffffff; shader: flat"
+            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+            animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
           </a-entity>
-        
-          <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"
-    
-            animation__right1="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal"
-            animation__back1="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 1000"
-    
-            animation__right2="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal; delay: 4000"
-            animation__back2="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 5000"
-    
-            animation__right3="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal; delay: 9000"
-            animation__back3="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 16000"
-    
-            animation__left1="property: rotation; from: 0 0 0; to: -5.397262430132355 17.68720713568851 40.87538206242806; dur: 1000; easing: linear; dir: normal; delay: 17000"
-            animation__back4="property: rotation; from: -5.397262430132355 17.68720713568851 40.87538206242806; to: 0 0 0; dur: 1000; easing: linear; delay: 21000"
-    
-    
-        >
         </a-entity>
         
-        <a-plane id="playBtn" class="control-btn clickable" position="0.0192 1.05417 -0.57141" width="1.5" height="0.5" color="#ff0000" text="align: center; color: white; value: Start Drive; width: 5" scale="0.2 0.2 0.2" material="color: #2981f5"></a-plane>
+        <!-- Steering wheel (animations triggered via events) -->
+        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"
+          animation__drive="property: rotation; to: -5 15 35; dur: 1000; easing: linear; dir: alternate; loop: true; startEvents: startdrive; pauseEvents: stopdrive">
+        </a-entity>
+        
+        <!-- In-scene clickable button -->
+        <a-plane id="playBtn" class="clickable" 
+                 position="0.0192 1.05417 -0.57141" 
+                 width="1.5" height="0.5" 
+                 color="#2981f5" 
+                 text="align: center; color: white; value: Start Drive; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
        
-          
       </a-entity>
-      
-
     </a-scene>
-
-    <!-- Play/Pause Button -->
-    <!-- <button id="playBtn" class="control-btn">Play</button> -->
 
     <script>
       const videoEl = document.querySelector('#video360');
       const btn = document.querySelector('#playBtn');
+      const steering = document.querySelector('#steering');
+      let isPlaying = false;
 
       btn.addEventListener('click', async () => {
-        if (videoEl.paused) {
+        if (!isPlaying) {
+          // Start video
           try {
             await videoEl.play();
-            btn.textContent = "Pause";
           } catch (e) {
             console.log("Play failed:", e);
           }
-        } else {
-          videoEl.pause();
-          btn.textContent = "Start";
-        }
-      });
 
-      // Ensure first gesture enables sound if unmuted later
-      videoEl.addEventListener('play', () => {
-        videoEl.muted = false; // optional: enable sound after interaction
-      });
-    </script>
-  </body>
-</html>
+          // Start steering animation
