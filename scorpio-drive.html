@@ -2,24 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>A-Frame 360 Video Play/Pause + Steering Sync</title>
+    <title>A-Frame 360 Video Play/Pause + Steering Sync (Fixed)</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <style>
-      /* ... (CSS block remains the same) ... */
-      .control-btn {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 12px 24px;
-        background: rgba(0,0,0,0.6);
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-    </style>
   </head>
   <body>
     <a-scene>
@@ -29,40 +13,37 @@
         <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
         <a-asset-item id="steering" src="scorpio steering optimized.glb"></a-asset-item>
         <video id="video360" 
-              src="road 360 trimmed.mp4"
-              crossorigin="anonymous"
-              playsinline
-              webkit-playsinline
-              preload="auto"
-              muted>
+               src="road 360 trimmed.mp4"
+               crossorigin="anonymous"
+               playsinline
+               webkit-playsinline
+               preload="auto"
+               muted>
         </video>
       </a-assets>
 
       <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
-          
         <a-entity id="camera" camera look-controls position="0.40632 1.27747 0.14709">
           <a-entity 
             cursor="fuse: true; fuseTimeout: 1500"
             raycaster="objects: .clickable"
             position="0 0 -0.5"
             geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-            material="color: #ffffff; shader: flat"
-            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
-            animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            material="color: #ffffff; shader: flat">
           </a-entity>
         </a-entity>
+
+        <!-- Steering wheel -->
+        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"></a-entity>
         
-        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1" rotation="0 0 0">
-        </a-entity>
-        
-        <a-plane id="playBtn" class="clickable" 
-                 position="0.0192 1.05417 -0.57141" 
-                 width="1.5" height="0.5" 
-                 color="#2981f5" 
-                 text="align: center; color: white; value: Start Drive; width: 5" 
+        <!-- Button -->
+        <a-plane id="playBtn" class="clickable"
+                 position="0.0192 1.05417 -0.57141"
+                 width="1.5" height="0.5"
+                 color="#2981f5"
+                 text="align: center; color: white; value: Start Drive; width: 5"
                  scale="0.2 0.2 0.2">
         </a-plane>
-        
       </a-entity>
     </a-scene>
 
@@ -71,42 +52,49 @@
       const btn = document.querySelector('#playBtn');
       const steering = document.querySelector('#steering');
       let isPlaying = false;
+      let modelLoaded = false;
 
-      // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
+      // Define the animation
       const steeringAnimationProps = {
         property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
-        // This is a larger, more obvious rotation around the Z-axis.
-        to: '0 0 30', 
-        dur: 500, // Shorter duration to make the movement faster and clearer
+        to: '-5 15 35',
+        dur: 1000,
         easing: 'linear',
         dir: 'alternate',
         loop: true
       };
 
+      // Wait for steering model to be ready
+      steering.addEventListener('model-loaded', () => {
+        modelLoaded = true;
+        console.log("✅ Steering model loaded and ready");
+      });
+
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
           // --- START DRIVE ---
-          
           try {
             await videoEl.play();
           } catch (e) {
             console.log("Video Play failed:", e);
           }
 
-          // ** FIX: Start steering animation by setting the component
-          steering.setAttribute('animation__drive', steeringAnimationProps);
+          if (modelLoaded) {
+            steering.setAttribute('animation__drive', steeringAnimationProps);
+          } else {
+            console.warn("Steering model not yet loaded.");
+          }
 
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
 
         } else {
           // --- STOP DRIVE ---
-          
           videoEl.pause();
 
-          // ** FIX: Stop steering animation by removing the component
+          // Stop steering and reset rotation
           steering.removeAttribute('animation__drive');
+          steering.object3D.rotation.set(0, 0, 0);
 
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
