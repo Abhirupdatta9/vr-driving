@@ -6,7 +6,7 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene background="color: #ECECEC" id="scene">
+    <a-scene background="color: #ECECEC">
       <a-assets>
         <a-asset-item id="scorpio" src="https://scorpio-asset.netlify.app/assets/scorpio black real size.glb"></a-asset-item>
         <a-asset-item id="novara" src="novara.glb"></a-asset-item>
@@ -19,7 +19,7 @@
       <a-entity light="intensity: 2" position="-19.4 4 -21.38"></a-entity>
       <a-entity light="intensity: 3" position="3.47 4.65 -10.75"></a-entity>
 
-      <!-- Main Camera Rig -->
+      <!-- Main Camera + Gaze Cursor -->
       <a-entity id="rig" position="0 1.6 8">
         <a-entity id="main_cam" camera="active: true" look-controls>
           <a-entity 
@@ -39,10 +39,10 @@
       <a-entity gltf-model="#showroom" scale="1.3 1.3 1.3"></a-entity>
       <a-entity geometry="primitive: plane" rotation="-90 0 0" position="0 0.02 0" scale="40 40 0" material="src: tile 2.jpg; shader: flat"></a-entity>
 
-      <!-- Car Left (Scorpio) -->
+      <!-- Car left Scorpio -->
       <a-entity id="scorpio" gltf-model="#scorpio" position="-3 0.151 -1" rotation="0 180 0">
 
-        <!-- Front Seat Camera -->
+        <!-- Front seat cam -->
         <a-entity position="0.406 1.29 -0.095">
           <a-entity id="sco_front_seat_cam" camera look-controls>
             <a-entity 
@@ -50,12 +50,14 @@
               raycaster="objects: .clickable"
               position="0 0 -0.5"
               geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-              material="color: #ff00f7; shader: flat">
+              material="color: #ff00f7; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
             </a-entity>
           </a-entity>
         </a-entity>
 
-        <!-- Back Seat Camera -->
+        <!-- Back seat cam -->
         <a-entity position="-0.37081 1.29 0.90993">
           <a-entity id="sco_back_seat_cam" camera look-controls>
             <a-entity 
@@ -63,12 +65,14 @@
               raycaster="objects: .clickable"
               position="0 0 -0.5"
               geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-              material="color: #ff00f7; shader: flat">
+              material="color: #ff00f7; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
             </a-entity>
           </a-entity>
         </a-entity>
 
-        <!-- Buttons -->
+        <!-- Buttons Group -->
         <a-plane id="sco_switch_to_main_cam" position="0.14 1.237 -0.73" width="1.5" height="0.5" color="#ff0000"
                  class="clickable" text="align: center; color: white; value: Exit Car; width: 5" scale="0.1 0.1 0.1"></a-plane>
 
@@ -82,16 +86,36 @@
                  class="clickable" text="align: center; color: white; value: VR Drive; width: 5" scale="0.1 0.1 0.1"></a-plane>
       </a-entity>
 
-      <!-- Car Right (Novara) -->
+      <!-- Car right Novara -->
       <a-entity id="novara" gltf-model="#novara" position="3 0.015 -1">
-        <!-- Front Seat Camera -->
+        <!-- Front seat cam -->
         <a-entity position="0.413 1.29 -0.434" rotation="0 180 0">
-          <a-entity id="nov_front_seat_cam" camera look-controls></a-entity>
+          <a-entity id="nov_front_seat_cam" camera look-controls>
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ff00f7; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+          </a-entity>
         </a-entity>
 
-        <!-- Back Seat Camera -->
+        <!-- Back seat cam -->
         <a-entity position="-0.37 1.29 -1.39" rotation="0 180 0">
-          <a-entity id="nov_back_seat_cam" camera look-controls></a-entity>
+          <a-entity id="nov_back_seat_cam" camera look-controls>
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ff00f7; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+          </a-entity>
         </a-entity>
 
         <!-- Buttons -->
@@ -108,7 +132,7 @@
                  class="clickable" text="align: center; color: white; value: VR Drive; width: 5" scale="0.1 0.1 0.1" rotation="0 180 0"></a-plane>
       </a-entity>
 
-      <!-- Main Scene Buttons -->
+      <!-- Main scene buttons -->
       <a-plane id="sco_btn" position="-1.85 0.266 4" width="1.5" height="0.5" color="#007BFF" class="clickable"
                text="value: Scorpio Interior; align: center; color: white; width: 5;"></a-plane>
       <a-plane id="nov_btn" position="1.68 0.266 4" width="1.5" height="0.5" color="#28A745" class="clickable"
@@ -117,70 +141,89 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const scene = document.querySelector("a-scene");
-        const rig = document.querySelector("#rig");
-
-        const main_cam = document.getElementById("main_cam");
-        const sco_front = document.getElementById("sco_front_seat_cam");
-        const sco_back = document.getElementById("sco_back_seat_cam");
-        const nov_front = document.getElementById("nov_front_seat_cam");
-        const nov_back = document.getElementById("nov_back_seat_cam");
-
+        const sceneEl = document.querySelector('a-scene');
+        const rigEl = document.getElementById('rig'); // The main rig holding the camera
+        const main_cam = document.getElementById('main_cam');
+        const sco_front = document.getElementById('sco_front_seat_cam');
+        const sco_back = document.getElementById('sco_back_seat_cam');
+        const nov_front = document.getElementById('nov_front_seat_cam');
+        const nov_back = document.getElementById('nov_back_seat_cam');
+    
+        // ... (rest of your existing element declarations) ...
         const sco_btn = document.querySelector("#sco_btn");
         const nov_btn = document.querySelector("#nov_btn");
         const sco_drive = document.querySelector("#sco_drive");
         const nov_drive = document.querySelector("#nov_drive");
-
-        const sco_to_main = document.getElementById("sco_switch_to_main_cam");
-        const sco_to_front = document.getElementById("sco_switch_to_front_seat_cam");
-        const sco_to_back = document.getElementById("sco_switch_to_back_seat_cam");
-        const nov_to_main = document.getElementById("nov_switch_to_main_cam");
-        const nov_to_front = document.getElementById("nov_switch_to_front_seat_cam");
-        const nov_to_back = document.getElementById("nov_switch_to_back_seat_cam");
-
+    
+        const sco_to_main = document.getElementById('sco_switch_to_main_cam');
+        const sco_to_front = document.getElementById('sco_switch_to_front_seat_cam');
+        const sco_to_back = document.getElementById('sco_switch_to_back_seat_cam');
+        const nov_to_main = document.getElementById('nov_switch_to_main_cam');
+        const nov_to_front = document.getElementById('nov_switch_to_front_seat_cam');
+        const nov_to_back = document.getElementById('nov_switch_to_back_seat_cam');
+        // ... (end of existing element declarations) ...
+    
         function setActiveCamera(activeCam) {
-          [main_cam, sco_front, sco_back, nov_front, nov_back].forEach(cam =>
-            cam.setAttribute("camera", "active", cam === activeCam)
-          );
+          [main_cam, sco_front, sco_back, nov_front, nov_back].forEach(cam => {
+            cam.setAttribute('camera', 'active', cam === activeCam);
+          });
         }
-
-        // Set camera switching
-        sco_btn.addEventListener("click", () => setActiveCamera(sco_front));
-        sco_to_front.addEventListener("click", () => setActiveCamera(sco_front));
-        sco_to_back.addEventListener("click", () => setActiveCamera(sco_back));
-        sco_to_main.addEventListener("click", () => setActiveCamera(main_cam));
-
-        nov_btn.addEventListener("click", () => setActiveCamera(nov_front));
-        nov_to_front.addEventListener("click", () => setActiveCamera(nov_front));
-        nov_to_back.addEventListener("click", () => setActiveCamera(nov_back));
-        nov_to_main.addEventListener("click", () => setActiveCamera(main_cam));
-
-        sco_drive.addEventListener("click", () => {
+    
+        sco_btn.addEventListener('click', () => setActiveCamera(sco_front));
+        sco_to_front.addEventListener('click', () => setActiveCamera(sco_front));
+        sco_to_back.addEventListener('click', () => setActiveCamera(sco_back));
+        sco_to_main.addEventListener('click', () => setActiveCamera(main_cam));
+    
+        nov_btn.addEventListener('click', () => setActiveCamera(nov_front));
+        nov_to_front.addEventListener('click', () => setActiveCamera(nov_front));
+        nov_to_back.addEventListener('click', () => setActiveCamera(nov_back));
+        nov_to_main.addEventListener('click', () => setActiveCamera(main_cam));
+    
+        sco_drive.addEventListener('click', () => {
           window.location.href = "https://vr-driving.netlify.app/video3";
         });
-        nov_drive.addEventListener("click", () => {
+    
+        nov_drive.addEventListener('click', () => {
           window.location.href = "https://vr-driving.netlify.app/video3";
         });
-
-        // Handle VR enter/exit height adjustments
-        const defaultY = 1.6;
-        const heightMap = {
-          main_cam: 1.6,
-          sco_front_seat_cam: 1.3,
-          sco_back_seat_cam: 1.3,
-          nov_front_seat_cam: 1.3,
-          nov_back_seat_cam: 1.3,
-        };
-
-        scene.addEventListener("enter-vr", () => {
-          const active = [main_cam, sco_front, sco_back, nov_front, nov_back].find(cam => cam.getAttribute("camera").active);
-          const y = heightMap[active.id] || defaultY;
-          rig.setAttribute("position", `0 ${y} 8`);
+    
+        // ------------------------------------------------------------------
+        // NEW VR HEIGHT ADJUSTMENT LOGIC
+        // ------------------------------------------------------------------
+        const DEFAULT_Y = 1.6; // Original Y position of the rig
+        const MOBILE_VR_Y = 0.5; // New, lower Y position for seated VR
+        const DELAY_MS = 500; // Delay in milliseconds (0.5 seconds)
+    
+        sceneEl.addEventListener('enter-vr', function () {
+          // Check if it's a mobile device (likely a Cardboard or similar seated experience)
+          if (AFRAME.utils.device.isMobile()) {
+            console.log('Entering VR on mobile. Adjusting camera height with delay.');
+            setTimeout(() => {
+              // Get current position, update only Y, and set the new position
+              const currentPos = rigEl.getAttribute('position');
+              rigEl.setAttribute('position', {
+                x: currentPos.x,
+                y: MOBILE_VR_Y,
+                z: currentPos.z
+              });
+              console.log(`Camera rig position updated to Y: ${MOBILE_VR_Y}`);
+            }, DELAY_MS);
+          }
         });
-
-        scene.addEventListener("exit-vr", () => {
-          rig.setAttribute("position", "0 1.6 8");
+    
+        sceneEl.addEventListener('exit-vr', function () {
+          // Reset camera height upon exiting VR
+          if (AFRAME.utils.device.isMobile()) {
+            const currentPos = rigEl.getAttribute('position');
+            rigEl.setAttribute('position', {
+              x: currentPos.x,
+              y: DEFAULT_Y,
+              z: currentPos.z
+            });
+            console.log(`Exiting VR. Camera rig position reset to Y: ${DEFAULT_Y}`);
+          }
         });
+    
       });
     </script>
   </body>
