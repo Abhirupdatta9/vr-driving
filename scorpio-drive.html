@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <a-scene background="color: #ECECEC">
+
+        <a-assets>
+            <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+            <a-asset-item id="steering" src="https://precious-quokka-a3803f.netlify.app/assets/steering.glb"></a-asset-item>
+            <video id="road" autoplay muted loop="true" src="https://precious-quokka-a3803f.netlify.app/assets/roads.mp4"> </video>
+        </a-assets>
+
+       
+        
+        <a-entity gltf-model="#car" position="0.47956 -0.496 10.98374" scale="0.2 0.2 0.2" rotation="0 0 0">
+        </a-entity>
+
+        <a-entity gltf-model="#steering" position="0.55937 -0.30436 10.84727" scale="0.18 0.18 0.18"
+
+            animation__right1="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal"
+            animation__back1="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 1000"
+
+            animation__right2="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal; delay: 4000"
+            animation__back2="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 5000"
+
+            animation__right3="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal; delay: 9000"
+            animation__back3="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 16000"
+
+            animation__left1="property: rotation; from: 0 0 0; to: -5.397262430132355 17.68720713568851 40.87538206242806; dur: 1000; easing: linear; dir: normal; delay: 17000"
+            animation__back4="property: rotation; from: -5.397262430132355 17.68720713568851 40.87538206242806; to: 0 0 0; dur: 1000; easing: linear; delay: 21000"
+
+
+        >
+        </a-entity>
+
+
+        <!-- <a-entity camera="" look-controls="" position="0.56299 -0.24656 10.97411" rotation="10.542423430407144 -1.2605071492878115 0"></a-entity> -->
+        <a-entity camera="" look-controls="" position="0.56299 -0.22646 10.97411"></a-entity>
+        <a-videosphere src="#road" rotation="0 -90 0"></a-videosphere>
+        
+
+    </a-scene>
+</body>
+</html>
