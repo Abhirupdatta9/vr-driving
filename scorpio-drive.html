@@ -40,11 +40,11 @@
         </video>
       </a-assets>
 
-      <a-entity gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 0 0">
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 0 0">
           
-          <a-entity camera="" look-controls="" position=""></a-entity>
+          <a-entity id="camera" camera="" look-controls="" position=""></a-entity>
           
-          <a-entity gltf-model="#steering" position="0 0 0" scale="1 1 1"
+          <a-entity id="steering" gltf-model="#steering" position="0 0 0" scale="1 1 1"
     
             animation__right1="property: rotation; from: 0 0 0; to: -6.233780811023356 -15.466995679556574 -36.53064310195103; dur: 1000; easing: linear; dir: normal"
             animation__back1="property: rotation; from: -6.233780811023356 -15.466995679556574 -36.53064310195103; to: 0 0 0; dur: 1000; easing: linear; delay: 1000"
@@ -62,8 +62,8 @@
         >
         </a-entity>
 
-        <a-plane id="playBtn" class="control-btn" position="0.14 1.237 -0.73" width="1.5" height="0.5" color="#ff0000"
-                 class="clickable" text="align: center; color: white; value: Start; width: 5" scale="0.1 0.1 0.1"></a-plane>
+        <a-plane id="playBtn" class="control-btn" position="0 0 0" width="1.5" height="0.5" color="#ff0000"
+                 class="clickable" text="align: center; color: white; value: Start; width: 5" scale="0.2 0.2 0.2"></a-plane>
           
       </a-entity>
       
