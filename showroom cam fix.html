@@ -6,7 +6,7 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene background="color: #ECECEC" vr-position-reset>
+    <a-scene background="color: #ECECEC" vr-reset-camera>
       <a-assets>
         <a-asset-item id="scorpio" src="https://scorpio-asset.netlify.app/assets/scorpio black real size.glb"></a-asset-item>
         <a-asset-item id="novara" src="novara.glb"></a-asset-item>
@@ -184,32 +184,49 @@
       });
 
 
-      //camera height reset in vr
-      AFRAME.registerComponent('vr-position-reset', {
+      AFRAME.registerComponent('vr-reset-camera', {
         init: function () {
-          const rigEl = document.getElementById('main_rig');
-          const sceneEl = this.el; // The scene element is 'this.el'
-      
-          // Listen for the 'enter-vr' event on the scene
+          const sceneEl = this.el;
+          // Listen for the event when the user clicks the VR button
           sceneEl.addEventListener('enter-vr', function () {
-            
-            // * SET YOUR DESIRED Y POSITION HERE *
-            const desiredY = 1.6; // Example: Set the eye height to 1.6 meters
+            // Find the camera entity (or the camera's parent rig)
+            const cameraEl = document.querySelector('[camera]'); 
       
-            // Move the parent 'rig' entity to the desired position.
-            // We are moving the entire VR space, not just the camera.
-            rigEl.setAttribute('position', 0 ${desiredY} 0);
-            
-            console.log('Camera rig position reset to Y:', desiredY);
-          });
-      
-          // (Optional) Listen for leaving VR mode to reset the position if needed
-          sceneEl.addEventListener('exit-vr', function () {
-            rigEl.setAttribute('position', '0 0 0');
-            console.log('Camera rig position reset for desktop/mobile view.');
+            // Reset the camera's Y position to 0 (or whatever you need)
+            // This is often needed if you have complex setup or an older version of A-Frame
+            if (cameraEl) {
+              cameraEl.setAttribute('position', {x: 0, y: 1.2, z: 0});
+            }
           });
         }
       });
+
+      //camera height reset in vr
+      // AFRAME.registerComponent('vr-position-reset', {
+      //   init: function () {
+      //     const rigEl = document.getElementById('main_rig');
+      //     const sceneEl = this.el; // The scene element is 'this.el'
+      
+      //     // Listen for the 'enter-vr' event on the scene
+      //     sceneEl.addEventListener('enter-vr', function () {
+            
+      //       // * SET YOUR DESIRED Y POSITION HERE *
+      //       const desiredY = 1.6; // Example: Set the eye height to 1.6 meters
+      
+      //       // Move the parent 'rig' entity to the desired position.
+      //       // We are moving the entire VR space, not just the camera.
+      //       rigEl.setAttribute('position', 0 ${desiredY} 0);
+            
+      //       console.log('Camera rig position reset to Y:', desiredY);
+      //     });
+      
+      //     // (Optional) Listen for leaving VR mode to reset the position if needed
+      //     sceneEl.addEventListener('exit-vr', function () {
+      //       rigEl.setAttribute('position', '0 0 0');
+      //       console.log('Camera rig position reset for desktop/mobile view.');
+      //     });
+      //   }
+      // });
       
     </script>
   </body>
