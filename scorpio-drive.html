@@ -42,7 +42,17 @@
 
       <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 0 0">
           
-          <a-entity id="camera" camera="" look-controls="" position="0.40632 1.27747 0.14709"></a-entity>
+          <a-entity id="camera" camera="" look-controls="" position="0.40632 1.27747 0.14709">
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ffffff; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+          </a-entity>
         
           <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"
     
@@ -62,7 +72,7 @@
         >
         </a-entity>
         
-        <a-plane id="playBtn" class="control-btn" position="0.0192 1.05417 -0.57141" width="1.5" height="0.5" color="#ff0000" text="align: center; color: white; value: Start Drive; width: 5" scale="0.2 0.2 0.2" material="color: #2981f5"></a-plane>
+        <a-plane id="playBtn" class="control-btn clickable" position="0.0192 1.05417 -0.57141" width="1.5" height="0.5" color="#ff0000" text="align: center; color: white; value: Start Drive; width: 5" scale="0.2 0.2 0.2" material="color: #2981f5"></a-plane>
        
           
       </a-entity>
