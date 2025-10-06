@@ -5,7 +5,7 @@
     <title>A-Frame 360 Video Play/Pause + Steering Sync</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <style>
-      /* Keeping the CSS style block as it was, though it's unused now. */
+      /* ... (CSS block remains the same) ... */
       .control-btn {
         position: absolute;
         bottom: 20px;
@@ -51,11 +51,8 @@
             animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
           </a-entity>
         </a-entity>
-         <!-- animation__drive="property: rotation; to: -5 15 35; dur: 1000; easing: linear; dir: alternate; loop: true; -->
-         <!-- animation="property: rotation; to: -5 15 35; dur: 1000; easing: linear; dir: normal;"  -->
-        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1"
         
-        >
+        <a-entity id="steering" gltf-model="#steering" position="0.40557 1.02683 -0.49071" scale="1 1 1" rotation="0 0 0">
         </a-entity>
         
         <a-plane id="playBtn" class="clickable" 
@@ -75,11 +72,13 @@
       const steering = document.querySelector('#steering');
       let isPlaying = false;
 
-      // Define the steering animation properties
+      // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
       const steeringAnimationProps = {
         property: 'rotation',
-        to: '-5 15 35',
-        dur: 1000,
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
+        // This is a larger, more obvious rotation around the Z-axis.
+        to: '0 0 30', 
+        dur: 500, // Shorter duration to make the movement faster and clearer
         easing: 'linear',
         dir: 'alternate',
         loop: true
@@ -87,35 +86,28 @@
 
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
-          // START DRIVE
+          // --- START DRIVE ---
           
-          // 1. Start video (requires user gesture, hence the click)
           try {
-            // Note: The video element needs to be unmuted for autoplay to work on some platforms.
-            // Consider removing 'muted' from the video tag if you want sound, 
-            // but keep it if you only want to bypass autoplay restrictions.
             await videoEl.play();
           } catch (e) {
-            console.log("Video Play failed (might need user interaction):", e);
+            console.log("Video Play failed:", e);
           }
 
-          // 2. Start steering animation: Set the component to start the loop
+          // ** FIX: Start steering animation by setting the component
           steering.setAttribute('animation__drive', steeringAnimationProps);
 
-          // 3. Update state and button label
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
 
         } else {
-          // STOP DRIVE
+          // --- STOP DRIVE ---
           
-          // 1. Pause video
           videoEl.pause();
 
-          // 2. Stop steering animation: Remove the component entirely
+          // ** FIX: Stop steering animation by removing the component
           steering.removeAttribute('animation__drive');
 
-          // 3. Update state and button label
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
