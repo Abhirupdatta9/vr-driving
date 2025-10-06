@@ -87,3 +87,24 @@
           }
 
           // Start steering animation
+          steering.emit('startdrive');
+
+          // Change button label
+          btn.setAttribute('text', 'value: Stop Drive');
+          isPlaying = true;
+
+        } else {
+          // Pause video
+          videoEl.pause();
+
+          // Stop steering animation
+          steering.emit('stopdrive');
+
+          // Change button label
+          btn.setAttribute('text', 'value: Start Drive');
+          isPlaying = false;
+        }
+      });
+    </script>
+  </body>
+</html>
