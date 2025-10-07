@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Novara VR Drive</title>
+    <title>Scorpio VR Drive</title>
     
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component/dist/aframe-event-set-component.min.js"></script>
@@ -29,11 +29,12 @@
 
 
 
-      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 180 0">
+        
         
         <a-entity
           id="rig"
-          movement-controls="speed:0.3" position="0.419 -0.250 0.103"
+          movement-controls="speed:0.3" position="0.329 -0.27 -0.647"
         >
           
           <a-entity
@@ -54,25 +55,28 @@
           </a-entity>
         </a-entity>
         
-        <a-entity id="steering" gltf-model="#carsteering" position="0.40557 1.02683 -0.49071" scale="1 1 1" rotation="0 0 0">
+        <a-entity id="steering" gltf-model="#carsteering" position="0.002 0.019 0.065" scale="1 1 1" rotation="0 0 0">
         </a-entity>
-        
+     
         <a-plane id="playBtn" class="clickable" 
-                 position="0.0192 1.05417 -0.57141" 
+                 position="-0.10682 1.05417 0.19977"
+                 rotation="0 180 0"
                  width="1.5" height="0.5" 
                  color="#2981f5" 
                  text="align: center; color: white; value: Start Drive; width: 5" 
                  scale="0.2 0.2 0.2">
         </a-plane>
+      
         <a-plane id="exitBtn" class="clickable" 
-                 position="-0.29447 1.05417 -0.57141" 
+                 position="-0.41393 1.05417 0.19309"
+                 rotation="0 180 0"
                  width="1.5" height="0.5" 
                  color="#ff0000" 
                  text="align: center; color: white; value: Exit; width: 5" 
                  scale="0.2 0.2 0.2">
         </a-plane>
        
-        
+       
       </a-entity>
 
       <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
@@ -84,7 +88,7 @@
     <script>
       const videoEl = document.querySelector('#video360');
       const btn = document.querySelector('#playBtn');
-      const btn = document.querySelector('#exitBtn');
+      const exitBtn = document.querySelector('#exitBtn');
       const steering = document.querySelector('#steering');
       let isPlaying = false;
 
