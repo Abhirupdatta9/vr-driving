@@ -75,12 +75,60 @@
         </a-plane>
         
       </a-entity>
-      
-      
-      
-      <!-- <a-sky color="#875e5e"></a-sky> -->
+
       <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
       
     </a-scene>
+
+
+    
+    <script>
+      const videoEl = document.querySelector('#video360');
+      const btn = document.querySelector('#playBtn');
+      const steering = document.querySelector('#steering');
+      let isPlaying = false;
+
+      // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
+      const steeringAnimationProps = {
+        property: 'rotation',
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
+        // This is a larger, more obvious rotation around the Z-axis.
+        to: '0 0 30', 
+        dur: 500, // Shorter duration to make the movement faster and clearer
+        easing: 'linear',
+        dir: 'alternate',
+        loop: true
+      };
+
+      btn.addEventListener('click', async () => {
+        if (!isPlaying) {
+          // --- START DRIVE ---
+          
+          try {
+            await videoEl.play();
+          } catch (e) {
+            console.log("Video Play failed:", e);
+          }
+
+          // ** FIX: Start steering animation by setting the component
+          steering.setAttribute('animation__drive', steeringAnimationProps);
+
+          btn.setAttribute('text', 'value: Stop Drive');
+          isPlaying = true;
+
+        } else {
+          // --- STOP DRIVE ---
+          
+          videoEl.pause();
+
+          // ** FIX: Stop steering animation by removing the component
+          steering.removeAttribute('animation__drive');
+
+          btn.setAttribute('text', 'value: Start Drive');
+          isPlaying = false;
+        }
+      });
+    </script>
+    
   </body>
 </html>
