@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>A-Frame 360 Video Play/Pause + Steering Sync</title>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <title>Scorpio VR Drive</title>
+    <script src="/js/https.js"></script>
+ 
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+
     <style>
-      /* ... (CSS block remains the same) ... */
-      .control-btn {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 12px 24px;
-        background: rgba(0,0,0,0.6);
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
+      .a-enter-vr-button {
+        padding: 10%;
+      }
+
+      .a-enter-ar-button {
+        display: none;
       }
     </style>
   </head>
   <body>
-    <a-scene webxr="optionalFeatures: local-floor">
-      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+    <a-scene>
 
-      <a-assets>
-        <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
-        <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
-        <video id="video360" 
-              src="road 360 trimmed.mp4"
-              crossorigin="anonymous"
-              playsinline
-              webkit-playsinline
-              preload="auto"
-              muted>
-        </video>
-      </a-assets>
+        <a-assets>
+          <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+          <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
+          <video id="video360" 
+                src="road 360 trimmed.mp4"
+                crossorigin="anonymous"
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                muted
+                loop="true"
+            >
+          </video>
+        </a-assets>
+      
+
+
 
       <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
-        <!-- <a-entity id="camera" camera look-controls position="0.40632 1.27747 0.14709"> -->
-        <a-entity id="camera" camera look-controls position="0.40632 -3 0.14709">
-          <a-entity 
-            cursor="fuse: true; fuseTimeout: 1500"
-            raycaster="objects: .clickable"
-            position="0 0 -0.5"
-            geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-            material="color: #ffffff; shader: flat"
-            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
-            animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+        
+        <a-entity
+          id="rig"
+          movement-controls="speed:0.3" position="0.419 -0.250 0.103"
+        >
+          
+          <a-entity
+            camera
+            position="0 1.6 0"
+            look-controls=""
+          >
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ffffff; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+  
           </a-entity>
         </a-entity>
         
@@ -64,8 +77,13 @@
         </a-plane>
         
       </a-entity>
+
+      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+      
     </a-scene>
 
+
+    
     <script>
       const videoEl = document.querySelector('#video360');
       const btn = document.querySelector('#playBtn');
@@ -73,17 +91,63 @@
       let isPlaying = false;
 
       // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
-      const steeringAnimationProps = {
+      
+
+      const steerRight1 = {
         property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
-        // This is a larger, more obvious rotation around the Z-axis.
-        to: '0 0 30', 
-        dur: 500, // Shorter duration to make the movement faster and clearer
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+        to: '0 0 -30', 
+        dur: 500, 
         easing: 'linear',
         dir: 'alternate',
-        loop: true
+  
       };
 
+      const steerRight1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerRight2 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight2Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1 = {
+        property: 'rotation',
+        to: '0 0 30', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+      
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
           // --- START DRIVE ---
@@ -94,11 +158,29 @@
             console.log("Video Play failed:", e);
           }
 
-          // ** FIX: Start steering animation by setting the component
-          steering.setAttribute('animation__drive', steeringAnimationProps);
-
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
+          
+          // ** FIX: Start steering animation by setting the component
+          //1st right
+          steering.setAttribute('animation__right1', steerRight1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1back', steerRight1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          //2nd right
+          steering.setAttribute('animation__right2', steerRight2);
+          await new Promise(resolve => setTimeout(resolve, 6000));
+          steering.setAttribute('animation__right2back', steerRight2Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          //1st left
+          steering.setAttribute('animation__left1', steerLeft1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__left1back', steerLeft1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          
 
         } else {
           // --- STOP DRIVE ---
@@ -106,12 +188,14 @@
           videoEl.pause();
 
           // ** FIX: Stop steering animation by removing the component
-          steering.removeAttribute('animation__drive');
-
+          steering.removeAttribute('animation__left1');
+          steering.removeAttribute('animation__right1');
+          
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
       });
     </script>
+    
   </body>
 </html>
