@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Scorpio VR Drive</title>
+    <title>Novara VR Drive</title>
     
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component/dist/aframe-event-set-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
-
-    <style>
-      /* .a-enter-vr-button {
-        padding: 10%;
-      }
-
-      .a-enter-ar-button {
-        display: none;
-      } */
-    </style>
   </head>
   <body>
     <a-scene>
 
         <a-assets>
-          <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
-          <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
+          <a-asset-item id="car" src="novara without steering.glb"></a-asset-item>
+          <a-asset-item id="carsteering" src="novara steering.glb"></a-asset-item>
           <video id="video360" 
                 src="road 30s.mp4"
                 crossorigin="anonymous"
@@ -74,6 +64,14 @@
                  text="align: center; color: white; value: Start Drive; width: 5" 
                  scale="0.2 0.2 0.2">
         </a-plane>
+        <a-plane id="exitBtn" class="clickable" 
+                 position="-0.29447 1.05417 -0.57141" 
+                 width="1.5" height="0.5" 
+                 color="#ff0000" 
+                 text="align: center; color: white; value: Exit; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
+       
         
       </a-entity>
 
@@ -86,9 +84,10 @@
     <script>
       const videoEl = document.querySelector('#video360');
       const btn = document.querySelector('#playBtn');
+      const btn = document.querySelector('#exitBtn');
       const steering = document.querySelector('#steering');
       let isPlaying = false;
-      let driveLoopInterval = null; // Variable to hold the loop interval
+
 
       // Animations      
       const steerRight1 = {
@@ -241,7 +240,7 @@
           videoEl.pause();
           videoEl.currentTime = 0;
     
-          // ** FIX: Stop steering animation by removing the component
+          // Stop steering animation by removing the component
           steering.removeAttribute('animation__right1');
           steering.removeAttribute('animation__right1back');
           steering.removeAttribute('animation__right2');
@@ -255,6 +254,11 @@
           isPlaying = false;
         }
       });
+
+      exitBtn.addEventListener('click', () => {
+        window.location.href = "https://vr-driving.netlify.app/showroom";
+      });
+      
     </script>
     
   </body>
