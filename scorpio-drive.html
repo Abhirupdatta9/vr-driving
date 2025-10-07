@@ -88,81 +88,168 @@
       const btn = document.querySelector('#playBtn');
       const steering = document.querySelector('#steering');
       let isPlaying = false;
-
+      let driveLoopInterval = null; // Variable to hold the loop interval
 
       //Animations      
-      const steerRight1 = {
-        property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
-        to: '0 0 -30', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight1 = {
+      //   property: 'rotation',
+      //   // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+      //   to: '0 0 -30', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
   
-      };
+      // };
 
-      const steerRight1Back = {
-        property: 'rotation',
-        to: '0 0 0', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight1Back = {
+      //   property: 'rotation',
+      //   to: '0 0 0', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
 
-      };
+      // };
 
-      const steerRight2 = {
-        property: 'rotation',
-        to: '0 0 -30', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight2 = {
+      //   property: 'rotation',
+      //   to: '0 0 -30', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
   
-      };
+      // };
 
-      const steerRight2Back = {
-        property: 'rotation',
-        to: '0 0 0', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight2Back = {
+      //   property: 'rotation',
+      //   to: '0 0 0', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
 
-      };
+      // };
 
-      const steerRight3 = {
-        property: 'rotation',
-        to: '0 0 -30', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight3 = {
+      //   property: 'rotation',
+      //   to: '0 0 -30', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
   
-      };
+      // };
 
-      const steerRight3Back = {
-        property: 'rotation',
-        to: '0 0 0', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerRight3Back = {
+      //   property: 'rotation',
+      //   to: '0 0 0', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
 
-      };
+      // };
       
-      const steerLeft1 = {
-        property: 'rotation',
-        to: '0 0 30', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerLeft1 = {
+      //   property: 'rotation',
+      //   to: '0 0 30', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
 
-      };
+      // };
 
-      const steerLeft1Back = {
-        property: 'rotation',
-        to: '0 0 0', 
-        dur: 1000, 
-        easing: 'linear',
-        dir: 'alternate',
+      // const steerLeft1Back = {
+      //   property: 'rotation',
+      //   to: '0 0 0', 
+      //   dur: 1000, 
+      //   easing: 'linear',
+      //   dir: 'alternate',
 
-      };
+      // };
+
+      const runSteeringSequence = async () => {
+        
+          const steerRight1 = {
+            property: 'rotation',
+            // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+            to: '0 0 -30', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+      
+          };
+    
+          const steerRight1Back = {
+            property: 'rotation',
+            to: '0 0 0', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+    
+          };
+    
+          const steerRight2 = {
+            property: 'rotation',
+            to: '0 0 -30', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+      
+          };
+    
+          const steerRight2Back = {
+            property: 'rotation',
+            to: '0 0 0', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+    
+          };
+    
+          const steerRight3 = {
+            property: 'rotation',
+            to: '0 0 -30', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+      
+          };
+    
+          const steerRight3Back = {
+            property: 'rotation',
+            to: '0 0 0', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+    
+          };
+          
+          const steerLeft1 = {
+            property: 'rotation',
+            to: '0 0 30', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+    
+          };
+    
+          const steerLeft1Back = {
+            property: 'rotation',
+            to: '0 0 0', 
+            dur: 1000, 
+            easing: 'linear',
+            dir: 'alternate',
+    
+          };
+      };
+
+      /**
+       * Starts the driving simulation loop.
+       */
+      const startDrivingLoop = async () => {
+        while (isPlaying) {
+          await runSteeringSequence();
+          // The while loop will continue immediately after the sequence finishes,
+          // effectively looping the animation sequence until isPlaying becomes false.
+        }
+      };
       
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
@@ -176,32 +263,35 @@
 
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
+          // Start the asynchronous loop
+          startDrivingLoop();
+
           
           // ** FIX: Start steering animation by setting the component
           //1st right
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          steering.setAttribute('animation__right1', steerRight1);
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          steering.setAttribute('animation__right1back', steerRight1Back);
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          // await new Promise(resolve => setTimeout(resolve, 2000));
+          // steering.setAttribute('animation__right1', steerRight1);
+          // await new Promise(resolve => setTimeout(resolve, 1000));
+          // steering.setAttribute('animation__right1back', steerRight1Back);
+          // await new Promise(resolve => setTimeout(resolve, 2000));
 
-          //2nd right
-          steering.setAttribute('animation__right2', steerRight2);
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          steering.setAttribute('animation__right2back', steerRight2Back);
-          await new Promise(resolve => setTimeout(resolve, 4000));
+          // //2nd right
+          // steering.setAttribute('animation__right2', steerRight2);
+          // await new Promise(resolve => setTimeout(resolve, 1000));
+          // steering.setAttribute('animation__right2back', steerRight2Back);
+          // await new Promise(resolve => setTimeout(resolve, 4000));
 
-          //3rd right
-          steering.setAttribute('animation__right3', steerRight3);
-          await new Promise(resolve => setTimeout(resolve, 7000));
-          steering.setAttribute('animation__right3back', steerRight3Back);
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          // //3rd right
+          // steering.setAttribute('animation__right3', steerRight3);
+          // await new Promise(resolve => setTimeout(resolve, 7000));
+          // steering.setAttribute('animation__right3back', steerRight3Back);
+          // await new Promise(resolve => setTimeout(resolve, 1000));
 
-          //1st left
-          steering.setAttribute('animation__left1', steerLeft1);
-          await new Promise(resolve => setTimeout(resolve, 4000));
-          steering.setAttribute('animation__left1back', steerLeft1Back);
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          // //1st left
+          // steering.setAttribute('animation__left1', steerLeft1);
+          // await new Promise(resolve => setTimeout(resolve, 4000));
+          // steering.setAttribute('animation__left1back', steerLeft1Back);
+          // await new Promise(resolve => setTimeout(resolve, 1000));
 
           
 
@@ -209,7 +299,8 @@
           // --- STOP DRIVE ---
           
           videoEl.pause();
-
+          videoEl.currentTime = 0;
+    
           // ** FIX: Stop steering animation by removing the component
           steering.removeAttribute('animation__right1');
           steering.removeAttribute('animation__right1back');
