@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scorpio VR Drive</title>
+    
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+
+    <style>
+      /* .a-enter-vr-button {
+        padding: 10%;
+      }
+
+      .a-enter-ar-button {
+        display: none;
+      } */
+    </style>
+  </head>
+  <body>
+    <a-scene>
+
+        <a-assets>
+          <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+          <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
+          <video id="video360" 
+                src="road 360 trimmed.mp4"
+                crossorigin="anonymous"
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                muted
+                loop="true"
+            >
+          </video>
+        </a-assets>
+      
+
+
+
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
+        
+        <a-entity
+          id="rig"
+          movement-controls="speed:0.3" position="0.419 -0.250 0.103"
+        >
+          
+          <a-entity
+            camera
+            position="0 1.6 0"
+            look-controls=""
+          >
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ffffff; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+  
+          </a-entity>
+        </a-entity>
+        
+        <a-entity id="steering" gltf-model="#carsteering" position="0.40557 1.02683 -0.49071" scale="1 1 1" rotation="0 0 0">
+        </a-entity>
+        
+        <a-plane id="playBtn" class="clickable" 
+                 position="0.0192 1.05417 -0.57141" 
+                 width="1.5" height="0.5" 
+                 color="#2981f5" 
+                 text="align: center; color: white; value: Start Drive; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
+        
+      </a-entity>
+
+      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+      
+    </a-scene>
+
+
+    
+    <script>
+      const videoEl = document.querySelector('#video360');
+      const btn = document.querySelector('#playBtn');
+      const steering = document.querySelector('#steering');
+      let isPlaying = false;
+
+      // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
+      
+
+      const steerRight1 = {
+        property: 'rotation',
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerRight2 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight2Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1 = {
+        property: 'rotation',
+        to: '0 0 30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+      
+      btn.addEventListener('click', async () => {
+        if (!isPlaying) {
+          // --- START DRIVE ---
+          
+          try {
+            await videoEl.play();
+          } catch (e) {
+            console.log("Video Play failed:", e);
+          }
+
+          btn.setAttribute('text', 'value: Stop Drive');
+          isPlaying = true;
+          
+          // ** FIX: Start steering animation by setting the component
+          //1st right
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1', steerRight1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1back', steerRight1Back);
+          await new Promise(resolve => setTimeout(resolve, 4000));
+
+          //2nd right
+          steering.setAttribute('animation__right2', steerRight2);
+          await new Promise(resolve => setTimeout(resolve, 7000));
+          steering.setAttribute('animation__right2back', steerRight2Back);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          //1st left
+          steering.setAttribute('animation__left1', steerLeft1);
+          await new Promise(resolve => setTimeout(resolve, 4000));
+          steering.setAttribute('animation__left1back', steerLeft1Back);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          
+
+        } else {
+          // --- STOP DRIVE ---
+          
+          videoEl.pause();
+
+          // ** FIX: Stop steering animation by removing the component
+          steering.removeAttribute('animation__right1');
+          steering.removeAttribute('animation__right1back');
+          steering.removeAttribute('animation__right2');
+          steering.removeAttribute('animation__right2back');
+          steering.removeAttribute('animation__left1');
+          steering.removeAttribute('animation__left1back');
+          
+          btn.setAttribute('text', 'value: Start Drive');
+          isPlaying = false;
+        }
+      });
+    </script>
+    
+  </body>
+</html>
