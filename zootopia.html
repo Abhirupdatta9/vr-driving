@@ -158,6 +158,9 @@
             console.log("Video Play failed:", e);
           }
 
+          btn.setAttribute('text', 'value: Stop Drive');
+          isPlaying = true;
+          
           // ** FIX: Start steering animation by setting the component
           //1st right
           steering.setAttribute('animation__right1', steerRight1);
@@ -177,8 +180,7 @@
           steering.setAttribute('animation__left1back', steerLeft1Back);
           await new Promise(resolve => setTimeout(resolve, 3000));
 
-          btn.setAttribute('text', 'value: Stop Drive');
-          isPlaying = true;
+          
 
         } else {
           // --- STOP DRIVE ---
