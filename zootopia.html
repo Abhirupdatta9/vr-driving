@@ -352,8 +352,23 @@
         text="color: #000000; value: Zebra Click"
         rotation="0 270 0"
       ></a-text>
-
-      <a-sky color="#875e5e"></a-sky>
+      
+      <a-assets>
+        <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+        <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
+        <video id="video360" 
+              src="road 360 trimmed.mp4"
+              crossorigin="anonymous"
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              muted>
+        </video>
+      </a-assets>
+      
+      <!-- <a-sky color="#875e5e"></a-sky> -->
+      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+      
     </a-scene>
   </body>
 </html>
