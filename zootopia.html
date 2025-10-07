@@ -21,6 +21,19 @@
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse">
+
+        <a-assets>
+          <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
+          <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
+          <video id="video360" 
+                src="road 360 trimmed.mp4"
+                crossorigin="anonymous"
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                muted>
+          </video>
+        </a-assets>
       
        <a-entity
         id="orangutan"
@@ -55,93 +68,35 @@
         </a-entity>
       </a-entity>
 
-      <a-text
-        look-at="#camera"
-        position="-8.19889 5.89037 17.98235"
-        scale="15 15 1"
-        color="silver"
-        text="color: #000000; value: ZOOTOPIA"
-      ></a-text>
 
-      <a-light id="alight" type="ambient" color="#888"></a-light>
-
-      <a-light
-        id="gilight"
-        position="-5.5 14 10"
-        type="spot"
-        color="#FFF"
-        angle="40"
-        target="#giraffe"
-        intensity="0.75"
-        castshadow="true"
-      ></a-light>
-
-      <a-light
-        id="chlight"
-        position="-3.8 8 -20"
-        type="spot"
-        color="#FFF"
-        angle="25"
-        target="#cheeta"
-        intensity="0.5"
-        castshadow="true"
-      ></a-light>
-
-      <a-light
-        id="galight"
-        position="4 8 10"
-        type="spot"
-        color="#FFF"
-        angle="25"
-        target="#zebra"
-        intensity="0.5"
-        castshadow="true"
-      ></a-light>
-
-      <a-light
-        id="zelight"
-        position="-4.5 8 -15"
-        type="spot"
-        color="#FFF"
-        angle="25"
-        target="#gazelle"
-        intensity="0.5"
-        castshadow="true"
-      ></a-light>
-
-      <a-plane
-        position="0 0 -4"
-        scale="10 10 10"
-        rotation="-90 0 0"
-        width="4"
-        height="4"
-        color="#7BC8A4"
-      ></a-plane>
-      <a-plane
-        position="0 0 23.84869"
-        scale="3.15173 4.15729 10"
-        rotation="-90 0 0"
-        width="4"
-        height="4"
-        color="#7BC8A4"
-        material=""
-        geometry=""
-      ></a-plane>
-
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1">
+        <!-- <a-entity id="camera" camera look-controls position="0.40632 1.27747 0.14709"> -->
+        <!-- <a-entity id="camera" camera look-controls position="0.40632 -3 0.14709">
+          <a-entity 
+            cursor="fuse: true; fuseTimeout: 1500"
+            raycaster="objects: .clickable"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+            material="color: #ffffff; shader: flat"
+            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+            animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+          </a-entity>
+        </a-entity> -->
+        
+        <a-entity id="steering" gltf-model="#carsteering" position="0.40557 1.02683 -0.49071" scale="1 1 1" rotation="0 0 0">
+        </a-entity>
+        
+        <a-plane id="playBtn" class="clickable" 
+                 position="0.0192 1.05417 -0.57141" 
+                 width="1.5" height="0.5" 
+                 color="#2981f5" 
+                 text="align: center; color: white; value: Start Drive; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
+        
+      </a-entity>
       
       
-      <a-assets>
-        <a-asset-item id="car" src="https://precious-quokka-a3803f.netlify.app/assets/scorpio without steering.glb"></a-asset-item>
-        <a-asset-item id="carsteering" src="scorpio steering optimized.glb"></a-asset-item>
-        <video id="video360" 
-              src="road 360 trimmed.mp4"
-              crossorigin="anonymous"
-              playsinline
-              webkit-playsinline
-              preload="auto"
-              muted>
-        </video>
-      </a-assets>
       
       <!-- <a-sky color="#875e5e"></a-sky> -->
       <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
