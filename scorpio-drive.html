@@ -217,35 +217,7 @@
           isPlaying = true;
           // Start the asynchronous loop
           startDrivingLoop();
-
-          
-          // ** FIX: Start steering animation by setting the component
-          //1st right
-          // await new Promise(resolve => setTimeout(resolve, 2000));
-          // steering.setAttribute('animation__right1', steerRight1);
-          // await new Promise(resolve => setTimeout(resolve, 1000));
-          // steering.setAttribute('animation__right1back', steerRight1Back);
-          // await new Promise(resolve => setTimeout(resolve, 2000));
-
-          // //2nd right
-          // steering.setAttribute('animation__right2', steerRight2);
-          // await new Promise(resolve => setTimeout(resolve, 1000));
-          // steering.setAttribute('animation__right2back', steerRight2Back);
-          // await new Promise(resolve => setTimeout(resolve, 4000));
-
-          // //3rd right
-          // steering.setAttribute('animation__right3', steerRight3);
-          // await new Promise(resolve => setTimeout(resolve, 7000));
-          // steering.setAttribute('animation__right3back', steerRight3Back);
-          // await new Promise(resolve => setTimeout(resolve, 1000));
-
-          // //1st left
-          // steering.setAttribute('animation__left1', steerLeft1);
-          // await new Promise(resolve => setTimeout(resolve, 4000));
-          // steering.setAttribute('animation__left1back', steerLeft1Back);
-          // await new Promise(resolve => setTimeout(resolve, 1000));
-
-          
+         
 
         } else {
           // --- STOP DRIVE ---
@@ -262,7 +234,7 @@
           steering.removeAttribute('animation__right3back');
           steering.removeAttribute('animation__left1');
           steering.removeAttribute('animation__left1back');
-          
+          steering.setAttribute('rotation', '0 0 0');
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
