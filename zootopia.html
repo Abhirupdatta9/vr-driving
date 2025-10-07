@@ -91,25 +91,61 @@
       let isPlaying = false;
 
       // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
-      const steerLeft1 = {
-        property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
-        // This is a larger, more obvious rotation around the Z-axis.
-        to: '0 0 30', 
-        dur: 500, // Shorter duration to make the movement faster and clearer
-        easing: 'linear',
-        dir: 'alternate',
-
-      };
+      
 
       const steerRight1 = {
         property: 'rotation',
         // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
         to: '0 0 -30', 
-        dur: 500, // Shorter duration to make the movement faster and clearer
+        dur: 500, 
         easing: 'linear',
         dir: 'alternate',
   
+      };
+
+      const steerRight1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerRight2 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight2Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1 = {
+        property: 'rotation',
+        to: '0 0 30', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 500, 
+        easing: 'linear',
+        dir: 'alternate',
+
       };
       
       btn.addEventListener('click', async () => {
@@ -123,9 +159,23 @@
           }
 
           // ** FIX: Start steering animation by setting the component
-          steering.setAttribute('animation__left1', steerLeft1);
-          await new Promise(resolve => setTimeout(resolve, 3000));
+          //1st right
           steering.setAttribute('animation__right1', steerRight1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1back', steerRight1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          //2nd right
+          steering.setAttribute('animation__right2', steerRight2);
+          await new Promise(resolve => setTimeout(resolve, 6000));
+          steering.setAttribute('animation__right2back', steerRight2Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          //1st left
+          steering.setAttribute('animation__left1', steerLeft1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__left1back', steerLeft1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));j
 
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
