@@ -121,8 +121,9 @@
           }
 
           // ** FIX: Start steering animation by setting the component
-          steering.setAttribute('animation__drive', steerLeft1);
-          steering.setAttribute('animation__drive', steerRight1);
+          steering.setAttribute('animation__left1', steerLeft1);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          steering.setAttribute('animation__right1', steerRight1);
 
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
@@ -133,8 +134,9 @@
           videoEl.pause();
 
           // ** FIX: Stop steering animation by removing the component
-          steering.removeAttribute('animation__drive');
-
+          steering.removeAttribute('animation__left1');
+          steering.removeAttribute('animation__right1');
+          
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
