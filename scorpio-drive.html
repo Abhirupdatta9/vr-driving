@@ -167,25 +167,30 @@
       const runSteeringSequence = async () => {
         
           //1st right
-          await delay(3000);
-          //await new Promise(resolve => setTimeout(resolve, 2000));
+          await new Promise(resolve => setTimeout(resolve, 2000));
           steering.setAttribute('animation__right1', steerRight1);
           await new Promise(resolve => setTimeout(resolve, 1000));
           steering.setAttribute('animation__right1back', steerRight1Back);
-          await new Promise(resolve => setTimeout(resolve, 2000));
-
+          await new Promise(resolve => setTimeout(resolve, 3000));
+        
+          if (!isPlaying) return;
+        
           //2nd right
           steering.setAttribute('animation__right2', steerRight2);
           await new Promise(resolve => setTimeout(resolve, 1000));
           steering.setAttribute('animation__right2back', steerRight2Back);
           await new Promise(resolve => setTimeout(resolve, 4000));
-
+        
+          if (!isPlaying) return;
+        
           //3rd right
           steering.setAttribute('animation__right3', steerRight3);
           await new Promise(resolve => setTimeout(resolve, 7000));
           steering.setAttribute('animation__right3back', steerRight3Back);
           await new Promise(resolve => setTimeout(resolve, 1000));
 
+          if (!isPlaying) return;
+          
           //1st left
           steering.setAttribute('animation__left1', steerLeft1);
           await new Promise(resolve => setTimeout(resolve, 4000));
