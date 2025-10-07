@@ -35,16 +35,6 @@
           </video>
         </a-assets>
       
-       <a-entity
-        id="orangutan"
-        position="-5 0 10"
-        rotation="0 270 0"
-        gltf-model="https://cdn.glitch.global/bc54e6e8-439f-4f2d-b509-9989c357d716/Orangutan.glb?v=1699244878374"
-        scale="4 4 4"
-        shadow
-        animation="property: rotation; to: 0 50 0; loop: true; dur: 2500; dir: alternate; easing: linear"
-      ></a-entity>
-      
 
       <!-- <a-entity
         id="rig"
@@ -82,24 +72,26 @@
             animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
           </a-entity>
         </a-entity> -->
+        
         <a-entity
           id="rig"
           movement-controls="speed:0.3" position="0 -0.2 0"
         >
+          
           <a-entity
             camera
-            position="0 1.6 0"
+            position="0.41896 1.52633 0.10278"
             look-controls="pointerLockEnabled: true"
           >
-         
-            <a-cursor
-              color="white"
-              fuse="true"
-              animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-              animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
-              animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
-            >
-            </a-cursor>
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ffffff; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
   
           </a-entity>
         </a-entity>
