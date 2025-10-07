@@ -89,9 +89,8 @@
       const steering = document.querySelector('#steering');
       let isPlaying = false;
 
-      // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
-      
 
+      //Animations      
       const steerRight1 = {
         property: 'rotation',
         // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
@@ -129,6 +128,24 @@
 
       };
 
+      const steerRight3 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight3Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+      
       const steerLeft1 = {
         property: 'rotation',
         to: '0 0 30', 
@@ -162,13 +179,19 @@
           
           // ** FIX: Start steering animation by setting the component
           //1st right
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          steering.setAttribute('animation__right1', steerRight1);
           await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1back', steerRight1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+
+          //2nd right
           steering.setAttribute('animation__right1', steerRight1);
           await new Promise(resolve => setTimeout(resolve, 1000));
           steering.setAttribute('animation__right1back', steerRight1Back);
           await new Promise(resolve => setTimeout(resolve, 4000));
 
-          //2nd right
+          //3rd right
           steering.setAttribute('animation__right2', steerRight2);
           await new Promise(resolve => setTimeout(resolve, 7000));
           steering.setAttribute('animation__right2back', steerRight2Back);
@@ -192,6 +215,8 @@
           steering.removeAttribute('animation__right1back');
           steering.removeAttribute('animation__right2');
           steering.removeAttribute('animation__right2back');
+          steering.removeAttribute('animation__right3');
+          steering.removeAttribute('animation__right3back');
           steering.removeAttribute('animation__left1');
           steering.removeAttribute('animation__left1back');
           
