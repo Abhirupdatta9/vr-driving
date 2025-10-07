@@ -89,7 +89,7 @@
       let isPlaying = false;
 
       // *** MODIFIED ANIMATION PROPERTIES FOR A CLEAR TEST ***
-      const steeringAnimationProps = {
+      const steerLeft1 = {
         property: 'rotation',
         // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 30 degrees and back.
         // This is a larger, more obvious rotation around the Z-axis.
@@ -97,9 +97,19 @@
         dur: 500, // Shorter duration to make the movement faster and clearer
         easing: 'linear',
         dir: 'alternate',
-        loop: true
+
       };
 
+      const steerRight1 = {
+        property: 'rotation',
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+        to: '0 0 -30', 
+        dur: 500, // Shorter duration to make the movement faster and clearer
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+      
       btn.addEventListener('click', async () => {
         if (!isPlaying) {
           // --- START DRIVE ---
@@ -111,7 +121,8 @@
           }
 
           // ** FIX: Start steering animation by setting the component
-          steering.setAttribute('animation__drive', steeringAnimationProps);
+          steering.setAttribute('animation__drive', steerLeft1);
+          steering.setAttribute('animation__drive', steerRight1);
 
           btn.setAttribute('text', 'value: Stop Drive');
           isPlaying = true;
