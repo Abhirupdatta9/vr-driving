@@ -24,7 +24,7 @@
                 loop="true"
             >
           </video>
-          <audio id="car sound" src="drive.mp3"></audio>
+          <audio id="carSound" src="drive.mp3" preload="auto" loop></audio>
         </a-assets>
       
 
@@ -87,6 +87,7 @@
       const btn = document.querySelector('#playBtn');
       const exitBtn = document.querySelector('#exitBtn');
       const steering = document.querySelector('#steering');
+      const carSound = document.querySelector('#carSound');
       let isPlaying = false;
 
 
@@ -225,6 +226,7 @@
           
           try {
             await videoEl.play();
+            carSound.play();
           } catch (e) {
             console.log("Video Play failed:", e);
           }
@@ -240,6 +242,8 @@
           
           videoEl.pause();
           videoEl.currentTime = 0;
+          carSound.pause();
+          carSound.currentTime = 0;
     
           // Stop steering animation by removing the component
           steering.removeAttribute('animation__right1');
