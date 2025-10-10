@@ -53,8 +53,8 @@
   
           </a-entity>
         </a-entity>
-        
-        <a-entity id="steering" gltf-model="#carsteering" position="0.002 0.019 0.065" scale="1 1 1" rotation="0 0 0">
+      
+        <a-entity id="steering" gltf-model="#carsteering" position="0.32021 0.87958 0.19106" scale="0.6 0.6 0.6" rotation="0 180 0">
         </a-entity>
      
         <a-plane id="playBtn" class="clickable" 
@@ -96,8 +96,8 @@
       // Animations      
       const steerRight1 = {
         property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
-        to: '0 0 -30', 
+        // New 'to' value: Rotate from its current rotation
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -106,7 +106,7 @@
 
       const steerRight1Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -115,7 +115,7 @@
 
       const steerRight2 = {
         property: 'rotation',
-        to: '0 0 -30', 
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -124,7 +124,7 @@
 
       const steerRight2Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -133,7 +133,7 @@
 
       const steerRight3 = {
         property: 'rotation',
-        to: '0 0 -30', 
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -142,7 +142,7 @@
 
       const steerRight3Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -151,7 +151,7 @@
       
       const steerLeft1 = {
         property: 'rotation',
-        to: '0 0 30', 
+        to: '0 180 30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -160,7 +160,7 @@
 
       const steerLeft1Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
