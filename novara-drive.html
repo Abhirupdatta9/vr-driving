@@ -370,8 +370,7 @@
       // Animations      
       const steerRight1 = {
         property: 'rotation',
-        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
-        to: '0 0 -30', 
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -380,7 +379,7 @@
 
       const steerRight1Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -389,7 +388,7 @@
 
       const steerRight2 = {
         property: 'rotation',
-        to: '0 0 -30', 
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -398,7 +397,7 @@
 
       const steerRight2Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -407,7 +406,7 @@
 
       const steerRight3 = {
         property: 'rotation',
-        to: '0 0 -30', 
+        to: '0 180 -30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -416,7 +415,7 @@
 
       const steerRight3Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -425,7 +424,7 @@
       
       const steerLeft1 = {
         property: 'rotation',
-        to: '0 0 30', 
+        to: '0 180 30', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -434,7 +433,7 @@
 
       const steerLeft1Back = {
         property: 'rotation',
-        to: '0 0 0', 
+        to: '0 180 0', 
         dur: 1000, 
         easing: 'linear',
         dir: 'alternate',
@@ -482,7 +481,7 @@
           steering.removeAttribute('animation__right3back');
           steering.removeAttribute('animation__left1');
           steering.removeAttribute('animation__left1back');
-          steering.setAttribute('rotation', '0 0 0');
+          steering.setAttribute('rotation', '0 180 0');
       };
 
       /**
@@ -530,7 +529,7 @@
           steering.removeAttribute('animation__right3back');
           steering.removeAttribute('animation__left1');
           steering.removeAttribute('animation__left1back');
-          steering.setAttribute('rotation', '0 0 0');
+          steering.setAttribute('rotation', '0 180 0');
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
