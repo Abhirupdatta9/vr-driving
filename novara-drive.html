@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Novara VR Drive</title>
@@ -260,6 +260,280 @@
           btn.setAttribute('text', 'value: Start Drive');
           isPlaying = false;
         }
+      }); -->
+
+
+
+
+
+
+
+      
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Novara VR Drive</title>
+    
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+  </head>
+  <body>
+    <a-scene>
+
+        <a-assets>
+          <a-asset-item id="car" src="novara without steering.glb"></a-asset-item>
+          <a-asset-item id="carsteering" src="novara steering 2.glb"></a-asset-item>
+          <video id="video360" 
+                src="road 30s.mp4"
+                crossorigin="anonymous"
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                muted
+                loop="true"
+            >
+          </video>
+          <audio id="carSound" src="drive.mp3" preload="auto" loop></audio>
+        </a-assets>
+      
+
+
+
+      <a-entity id="car" gltf-model="#car" position="0 0 0" scale="1 1 1" rotation="0 180 0">
+        
+        <a-entity
+          id="rig"
+          movement-controls="speed:0.3" position="0.329 -0.350 -0.437" rotation="0 180 0"
+        >
+          
+          <a-entity
+            camera
+            position="0 1.6 0"
+            look-controls=""
+          >
+            <a-entity 
+              cursor="fuse: true; fuseTimeout: 1500"
+              raycaster="objects: .clickable"
+              position="0 0 -0.5"
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+              material="color: #ffffff; shader: flat"
+              animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.2 0.2 0.2; dur: 1500"
+              animation__reset="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 300">
+            </a-entity>
+  
+          </a-entity>
+        </a-entity>
+      
+        <a-entity id="steering" gltf-model="#carsteering" position="0.32021 0.87958 0.19106" scale="0.6 0.6 0.6" rotation="0 180 0">
+        </a-entity>
+        
+        <a-plane id="playBtn" class="clickable" 
+                 position="-0.10682 1.05417 0.19977"
+                 rotation="0 180 0"
+                 width="1.5" height="0.5" 
+                 color="#2981f5" 
+                 text="align: center; color: white; value: Start Drive; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
+      
+        <a-plane id="exitBtn" class="clickable" 
+                 position="-0.41393 1.05417 0.19309"
+                 rotation="0 180 0"
+                 width="1.5" height="0.5" 
+                 color="#ff0000" 
+                 text="align: center; color: white; value: Exit; width: 5" 
+                 scale="0.2 0.2 0.2">
+        </a-plane>
+        
+       
+        
+      </a-entity>
+      <a-entity light="intensity: 10; type: point" position="0 1.44464 1.23404"></a-entity>
+      <a-videosphere src="#video360" rotation="0 -90 0"></a-videosphere>
+      
+    </a-scene>
+
+
+    
+    <script>
+      const videoEl = document.querySelector('#video360');
+      const btn = document.querySelector('#playBtn');
+      const exitBtn = document.querySelector('#exitBtn');
+      const steering = document.querySelector('#steering');
+      const carSound = document.querySelector('#carSound');
+      let isPlaying = false;
+
+
+      // Animations      
+      const steerRight1 = {
+        property: 'rotation',
+        // New 'to' value: Rotate from its current rotation (0 0 0) to 0 0 -30 degrees and back.
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerRight2 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight2Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerRight3 = {
+        property: 'rotation',
+        to: '0 0 -30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+  
+      };
+
+      const steerRight3Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+      
+      const steerLeft1 = {
+        property: 'rotation',
+        to: '0 0 30', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const steerLeft1Back = {
+        property: 'rotation',
+        to: '0 0 0', 
+        dur: 1000, 
+        easing: 'linear',
+        dir: 'alternate',
+
+      };
+
+      const runSteeringSequence = async () => {
+        
+          //1st right
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          steering.setAttribute('animation__right1', steerRight1);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right1back', steerRight1Back);
+          await new Promise(resolve => setTimeout(resolve, 3000));
+        
+          if (!isPlaying) return;
+        
+          //2nd right
+          steering.setAttribute('animation__right2', steerRight2);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          steering.setAttribute('animation__right2back', steerRight2Back);
+          await new Promise(resolve => setTimeout(resolve, 4000));
+        
+          if (!isPlaying) return;
+        
+          //3rd right
+          steering.setAttribute('animation__right3', steerRight3);
+          await new Promise(resolve => setTimeout(resolve, 7000));
+          steering.setAttribute('animation__right3back', steerRight3Back);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          if (!isPlaying) return;
+          
+          //1st left
+          steering.setAttribute('animation__left1', steerLeft1);
+          await new Promise(resolve => setTimeout(resolve, 4000));
+          steering.setAttribute('animation__left1back', steerLeft1Back);
+          await new Promise(resolve => setTimeout(resolve, 7000));
+
+          steering.removeAttribute('animation__right1');
+          steering.removeAttribute('animation__right1back');
+          steering.removeAttribute('animation__right2');
+          steering.removeAttribute('animation__right2back');
+          steering.removeAttribute('animation__right3');
+          steering.removeAttribute('animation__right3back');
+          steering.removeAttribute('animation__left1');
+          steering.removeAttribute('animation__left1back');
+          steering.setAttribute('rotation', '0 0 0');
+      };
+
+      /**
+       * Starts the driving simulation loop.
+       */
+      const startDrivingLoop = async () => {
+        while (isPlaying) {
+          await runSteeringSequence();
+          // The while loop will continue immediately after the sequence finishes,
+          // effectively looping the animation sequence until isPlaying becomes false.
+        }
+      };
+      
+      btn.addEventListener('click', async () => {
+        if (!isPlaying) {
+          // --- START DRIVE ---
+          
+          try {
+            await videoEl.play();
+            carSound.play();
+          } catch (e) {
+            console.log("Video Play failed:", e);
+          }
+
+          btn.setAttribute('text', 'value: Stop Drive');
+          isPlaying = true;
+          // Start the asynchronous loop
+          startDrivingLoop();
+         
+
+        } else {
+          // --- STOP DRIVE ---
+          
+          videoEl.pause();
+          videoEl.currentTime = 0;
+          carSound.pause();
+          carSound.currentTime = 0;
+    
+          // Stop steering animation by removing the component
+          steering.removeAttribute('animation__right1');
+          steering.removeAttribute('animation__right1back');
+          steering.removeAttribute('animation__right2');
+          steering.removeAttribute('animation__right2back');
+          steering.removeAttribute('animation__right3');
+          steering.removeAttribute('animation__right3back');
+          steering.removeAttribute('animation__left1');
+          steering.removeAttribute('animation__left1back');
+          steering.setAttribute('rotation', '0 0 0');
+          btn.setAttribute('text', 'value: Start Drive');
+          isPlaying = false;
+        }
       });
 
       exitBtn.addEventListener('click', () => {
@@ -267,7 +541,6 @@
       });
       
     </script>
-    
     
   </body>
 </html>
